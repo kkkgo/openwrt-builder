@@ -2,6 +2,9 @@
 openwrt image builder.   
 For personal use only, do not open any issue.   
 ```
+docker pull sliamb/opbuilder
+mkdir -p ./bin
+mkdir -p ./FILES/
 rm -rf ./bin/*
 ls -lah ./bin/
 docker run --rm --name opbuilder \
