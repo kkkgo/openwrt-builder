@@ -7,7 +7,9 @@ WORKDIR /src
 ADD https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-imagebuilder-x86-64.Linux-x86_64.tar.xz /src
 RUN tar -xvf *.tar.xz && rm *.tar.xz && mv *image* builder
 WORKDIR /src/builder
-RUN make image PROFILE="generic" && rm -rf ./bin/targets/x86/64/*
+COPY ./download.pkg /src/download.pkg
+COPY ./prebuild.sh /src/prebuild.sh
+RUN bash /src/prebuild.sh
 
 FROM soft
 WORKDIR /src/
