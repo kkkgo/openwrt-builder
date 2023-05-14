@@ -10,7 +10,7 @@ WORKDIR /src/builder
 COPY ./download.pkg /src/download.pkg
 COPY ./prebuild.sh /src/prebuild.sh
 RUN bash /src/prebuild.sh
-COPY --from=dreamacro/clash:latest /clash /src/builder/FILES/usr/bin/
+COPY --from=dreamacro/clash:latest /clash /src/builder/
 
 FROM soft
 WORKDIR /src/
