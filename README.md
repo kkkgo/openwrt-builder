@@ -10,7 +10,7 @@ ls -lah ./bin/
 docker run --rm --name opbuilder \
 -v $(pwd)/custom.config.sh:/src/custom.config.sh \
 -v $(pwd)/bin/:/src/bin/targets/x86/64/ \
--v $(pwd)/FILES:/src/FILES \
+-v $(pwd)/FILES:/src/cpfiles/ \
 -v $(pwd)/pkg.conf:/src/pkg.conf \
 sliamb/opbuilder
 ls -lah ./bin/
