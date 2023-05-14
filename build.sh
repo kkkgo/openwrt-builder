@@ -7,6 +7,6 @@ done <pkg.conf
 mkdir -p /src/FILES/usr/bin/
 mv /src/clash /src/FILES/usr/bin/
 mkdir -p /src/cpfiles/
-cp -r /src/cpfiles/ /src/FILES/
+cp -r /src/cpfiles/* /src/FILES/
 echo PACKAGES="$pkg"
 make image PROFILE="generic" PACKAGES="$pkg" FILES="/src/FILES"
