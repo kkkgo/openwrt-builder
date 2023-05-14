@@ -74,6 +74,8 @@ kmod-igbvf
 kmod-igc
 kmod-input-core
 kmod-ipt-core
+kmod-ipt-nat
+kmod-ipt-filter
 kmod-ipt-tproxy
 kmod-ipvlan
 -kmod-ixgbe
