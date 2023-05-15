@@ -5,6 +5,7 @@ bnx2x-firmware
 busybox
 ca-bundle
 dnsmasq
+curl
 dropbear
 e100-firmware
 e2fsprogs
