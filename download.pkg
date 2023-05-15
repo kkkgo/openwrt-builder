@@ -227,5 +227,5 @@ ucode-mod-uci
 urandom-seed
 urngd
 usign
-
+wget-ssl
 
