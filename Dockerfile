@@ -7,7 +7,7 @@ WORKDIR /src
 ADD https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-imagebuilder-x86-64.Linux-x86_64.tar.xz /src
 RUN tar -xvf *.tar.xz && rm *.tar.xz && mv *image* builder
 WORKDIR /src/builder
-COPY ./download.pkg /src/download.pkg
+COPY ./download.pkg /src/builder/download.pkg
 COPY ./prebuild.sh /src/prebuild.sh
 RUN bash /src/prebuild.sh
 COPY --from=dreamacro/clash:latest /clash /src/builder/
