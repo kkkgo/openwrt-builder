@@ -17,3 +17,5 @@ chmod +x /src/FILES/etc/*
 chmod +x /src/FILES/usr/bin/*
 echo PACKAGES="$pkg"
 make image PROFILE="generic" PACKAGES="$pkg" FILES="/src/FILES"
+mkdir -p /src/iso/
+mv /src/bin/targets/x86/64/*.iso /src/iso/
