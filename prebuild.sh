@@ -14,7 +14,7 @@ sed -i '/checksums:/i checksum:\n\techo bypass checksum.\n' Makefile
 mkdir -p ./clash-dashboard
 git clone -b gh-pages --depth 1 https://github.com/Dreamacro/clash-dashboard ./clash-dashboard
 if [ -f ./clash-dashboard/index.html ]; then
-    rm -f /src/clash-dashboard/CNAME
-    rm -rf /src/clash-dashboard/.git
+    rm -f ./clash-dashboard/CNAME
+    rm -rf ./clash-dashboard/.git
 # sed -i "s/\/settings/\//g" $(grep -rso "/settings" ~/clash-dashboard|cut -d":" -f1)
 fi
