@@ -10,9 +10,11 @@ while read line; do
     pkg="$pkg $line"
 done <$pkgf
 mkdir -p /src/FILES/usr/bin/
+mkdir -p /src/FILES/etc/config/clash/
 mv /src/clash /src/FILES/usr/bin/
 mkdir -p /src/cpfiles/
 cp -r /src/cpfiles/* /src/FILES/
+cp -r /src/clash-dashboard /src/FILES/etc/config/clash/
 chmod +x /src/FILES/etc/*
 chmod +x /src/FILES/usr/bin/*
 echo PACKAGES="$pkg"
