@@ -229,4 +229,6 @@ urandom-seed
 urngd
 usign
 wget-ssl
+coreutils-nohup
+
 
