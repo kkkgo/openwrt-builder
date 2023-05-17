@@ -12,6 +12,7 @@ done <$pkgf
 mkdir -p /src/FILES/usr/bin/
 mkdir -p /src/FILES/etc/config/clash/
 mv /src/clash /src/FILES/usr/bin/
+mv /src/Country.mmdb /src/FILES/etc/config/clash/
 mkdir -p /src/cpfiles/
 cp -r /src/cpfiles/* /src/FILES/
 mv /src/clash-dashboard /src/FILES/etc/config/clash/

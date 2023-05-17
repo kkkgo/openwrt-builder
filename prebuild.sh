@@ -18,3 +18,12 @@ if [ -f ./clash-dashboard/index.html ]; then
     rm -rf ./clash-dashboard/.git
 # sed -i "s/\/settings/\//g" $(grep -rso "/settings" ~/clash-dashboard|cut -d":" -f1)
 fi
+
+# mmdb
+curl -sLo ./Country.mmdb https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb
+mmdb_hash=$(sha256sum ./Country.mmdb | grep -Eo "[a-zA-Z0-9]{64}" | head -1)
+mmdb_down_hash=$(curl -s https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb.sha256sum | grep -Eo "[a-zA-Z0-9]{64}" | head -1)
+if [ "$mmdb_down_hash" != "$mmdb_hash" ]; then
+    cp /mmdb_down_hash_error .
+    exit
+fi
