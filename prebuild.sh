@@ -16,7 +16,7 @@ git clone -b gh-pages --depth 1 https://github.com/Dreamacro/clash-dashboard ./c
 if [ -f ./clash-dashboard/index.html ]; then
     rm -f ./clash-dashboard/CNAME
     rm -rf ./clash-dashboard/.git
-# sed -i "s/\/settings/\//g" $(grep -rso "/settings" ~/clash-dashboard|cut -d":" -f1)
+    sed -i "s/\/settings/\//g" $(grep -rso "/settings" ./clash-dashboard | cut -d":" -f1)
 fi
 
 # mmdb
