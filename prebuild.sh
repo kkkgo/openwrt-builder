@@ -12,7 +12,7 @@ sed -i 's/checksum: FORCE/checksums:/' Makefile
 sed -i '/checksums:/i checksum:\n\techo bypass checksum.\n' Makefile
 
 mkdir -p ./clash-dashboard
-git clone -b gh-pages --depth 1 https://github.com/Dreamacro/clash-dashboard ./clash-dashboard
+git clone -b gh-pages --depth 1 https://github.com/haishanh/yacd/tree/gh-pages ./clash-dashboard
 if [ -f ./clash-dashboard/index.html ]; then
     rm -f ./clash-dashboard/CNAME
     rm -rf ./clash-dashboard/.git
