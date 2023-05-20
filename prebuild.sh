@@ -15,6 +15,7 @@ git clone -b gh-pages --depth 1 https://github.com/haishanh/yacd.git ./clash-das
 if [ -f ./clash-dashboard/index.html ]; then
     rm -f ./clash-dashboard/CNAME
     rm -rf ./clash-dashboard/.git
+    mv ./clash-dashboard/index.html ./clash-dashboard/index_base.html
     # sed -i "s/\/settings/\//g" $(grep -rso "/settings" ./clash-dashboard | cut -d":" -f1)
 fi
 
