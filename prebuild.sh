@@ -11,7 +11,7 @@ sed -i '/package_reloads:/i package_reload:\n\techo fake reload.\n\tmkdir -p /sr
 sed -i 's/checksum: FORCE/checksums:/' Makefile
 sed -i '/checksums:/i checksum:\n\techo bypass checksum.\n' Makefile
 
-git clone -b gh-pages --depth 1 https://github.com/Dreamacro/clash-dashboard.git ./clash-dashboard
+git clone -b gh-pages --depth 1 https://github.com/haishanh/yacd.git ./clash-dashboard
 if [ -f ./clash-dashboard/index.html ]; then
     rm -f ./clash-dashboard/CNAME
     rm -rf ./clash-dashboard/.git
