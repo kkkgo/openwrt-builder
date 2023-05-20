@@ -11,13 +11,13 @@ sed -i '/package_reloads:/i package_reload:\n\techo fake reload.\n\tmkdir -p /sr
 sed -i 's/checksum: FORCE/checksums:/' Makefile
 sed -i '/checksums:/i checksum:\n\techo bypass checksum.\n' Makefile
 
-git clone -b gh-pages --depth 1 https://github.com/haishanh/yacd.git ./clash-dashboard
-if [ -f ./clash-dashboard/index.html ]; then
-    rm -f ./clash-dashboard/CNAME
-    rm -rf ./clash-dashboard/.git
-    mv ./clash-dashboard/index.html ./clash-dashboard/index_base.html
-    # sed -i "s/\/settings/\//g" $(grep -rso "/settings" ./clash-dashboard | cut -d":" -f1)
-fi
+# git clone -b gh-pages --depth 1 https://github.com/haishanh/yacd.git ./clash-dashboard
+# if [ -f ./clash-dashboard/index.html ]; then
+#     rm -f ./clash-dashboard/CNAME
+#     rm -rf ./clash-dashboard/.git
+#     mv ./clash-dashboard/index.html ./clash-dashboard/index_base.html
+#     # sed -i "s/\/settings/\//g" $(grep -rso "/settings" ./clash-dashboard | cut -d":" -f1)
+# fi
 
 # mmdb
 curl -sLo ./Country.mmdb https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb
