@@ -6,7 +6,6 @@ base-files
 busybox
 ca-bundle
 -coreutils-nohup
-curl
 -dnsmasq
 dropbear
 e100-firmware
