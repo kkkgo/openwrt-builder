@@ -16,6 +16,13 @@ mv /src/Country.mmdb /src/FILES/etc/config/clash/
 mkdir -p /src/cpfiles/
 cp -r /src/cpfiles/* /src/FILES/
 # mv /src/clash-dashboard /src/FILES/etc/config/clash/
+ppgwver=$(date +%Y%m%d)
+if [ -f ./sha.txt ]; then
+    ppgwver="$ppgwver""-"$(cat ./sha.txt)
+fi
+cd /src/FILES/etc/config/clash/clash-dashboard/assets || exit
+sed -i "s/PPGW_version/$ppgwver/g" $(grep -ros "PPGW_version" | cut -d":" -f1)
+cd - || exit
 chmod +x /src/FILES/etc/*
 chmod +x /src/FILES/usr/bin/*
 echo PACKAGES="$pkg"
