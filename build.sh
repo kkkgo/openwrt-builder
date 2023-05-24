@@ -25,4 +25,4 @@ echo PACKAGES="$pkg"
 make image PROFILE="generic" PACKAGES="$pkg" FILES="/src/FILES" DISABLED_SERVICES="sysntpd"
 ls -lah /src/bin/targets/x86/64/*.iso
 mkdir -p /src/iso/
-mv /src/bin/targets/x86/64/*efi.iso /src/iso/
+mv /src/bin/targets/x86/64/*.iso /src/iso/
