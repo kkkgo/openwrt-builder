@@ -28,3 +28,9 @@ rm 10_indicate_failsafe
 rm 40_run_failsafe_hook
 rm 99_10_failsafe_dropbear
 rm 99_10_failsafe_login
+cd /src/builder/build_dir/target-x86_64_musl/root.orig-x86/lib/preinit/ || exit
+rm 30_failsafe_wait
+rm 10_indicate_failsafe
+rm 40_run_failsafe_hook
+rm 99_10_failsafe_dropbear
+rm 99_10_failsafe_login
