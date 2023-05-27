@@ -1,5 +1,6 @@
 #!/bin/sh
 if [ -n "$1" ]; then
+    echo "Patch :""$1"
     if [ -f "/src/patch.sh" ]; then
         /src/patch.sh "$1"
     fi

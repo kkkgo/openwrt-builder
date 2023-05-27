@@ -10,7 +10,7 @@ sed -i 's/package_reload:/package_reloads:/' Makefile
 sed -i '/package_reloads:/i package_reload:\n\techo fake reload.\n\tmkdir -p /src/build_dir/target-x86_64_musl/root-x86//tmp/' Makefile
 sed -i 's/checksum: FORCE/checksums:/' Makefile
 sed -i '/checksums:/i checksum:\n\techo bypass checksum.\n' Makefile
-sed -i '/mkisofs -R/i \	sh /src/build.sh $(TARGET_DIR)' ./target/linux/x86/image/Makefile
+sed -i '/mkisofs -R/i \	sh /src/build.sh "$(TARGET_DIR)"' ./target/linux/x86/image/Makefile
 
 mkdir -p /src/builder/clash-premium/
 
