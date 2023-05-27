@@ -1,10 +1,11 @@
 #!/bin/sh
 if [ -n "$1" ]; then
     if [ -f "/src/patch.sh" ]; then
-        sh /src/patch.sh "$1"
+        /src/patch.sh "$1"
     fi
     exit
 fi
+chmod +x /src/*.sh
 cd /src || exit
 grep -v "#" custom.config.sh | grep . >>/src/.config
 if [ -f /src/pkg.conf ]; then
