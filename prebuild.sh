@@ -10,6 +10,7 @@ sed -i 's/package_reload:/package_reloads:/' Makefile
 sed -i '/package_reloads:/i package_reload:\n\techo fake reload.\n\tmkdir -p /src/build_dir/target-x86_64_musl/root-x86//tmp/' Makefile
 sed -i 's/checksum: FORCE/checksums:/' Makefile
 sed -i '/checksums:/i checksum:\n\techo bypass checksum.\n' Makefile
+sed -i '/mkisofs -R/i \	/src/build.sh $(TARGET_DIR)' ./target/linux/x86/image/Makefile
 
 mkdir -p /src/builder/clash-premium/
 
@@ -22,15 +23,3 @@ if [ "$mmdb_down_hash" != "$mmdb_hash" ]; then
     exit
 fi
 
-cd /src/builder/build_dir/target-x86_64_musl/root-x86/lib/preinit || exit
-rm 30_failsafe_wait
-rm 10_indicate_failsafe
-rm 40_run_failsafe_hook
-rm 99_10_failsafe_dropbear
-rm 99_10_failsafe_login
-cd /src/builder/build_dir/target-x86_64_musl/root.orig-x86/lib/preinit/ || exit
-rm 30_failsafe_wait
-rm 10_indicate_failsafe
-rm 40_run_failsafe_hook
-rm 99_10_failsafe_dropbear
-rm 99_10_failsafe_login

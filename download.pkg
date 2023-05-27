@@ -230,7 +230,8 @@ ucode-mod-uci
 urandom-seed
 urngd
 -usign
--wget
 -wget-ssl
-dnsmasq
+-wget
+
+
 
