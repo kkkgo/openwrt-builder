@@ -23,3 +23,12 @@ if [ "$mmdb_down_hash" != "$mmdb_hash" ]; then
     exit
 fi
 
+# big mmdb
+curl -sLo /src/builder/Country-full.mmdb https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+mmdbfull_hash=$(sha256sum /src/builder/Country-full.mmdb | grep -Eo "[a-zA-Z0-9]{64}" | head -1)
+mmdbfull_down_hash=$(curl -s https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb.sha256sum | grep -Eo "[a-zA-Z0-9]{64}" | head -1)
+if [ "$mmdbfull_down_hash" != "$mmdbfull_hash" ]; then
+    cp /mmdbfull_down_hash_error .
+    exit
+fi
+
