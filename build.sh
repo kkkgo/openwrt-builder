@@ -26,6 +26,7 @@ cp -r /src/cpfiles/* /src/FILES/
 # mv /src/clash-dashboard /src/FILES/etc/config/clash/
 cd /src/FILES/etc/config/clash/clash-dashboard/assets || exit
 sed -i "s/PPGW_version/$ppgwver/g" $(grep -ros "PPGW_version" | cut -d":" -f1)
+sed -i "s/PPGW_version/$ppgwver/g" /src/FILES/etc/config/clash/clash-dashboard/index_base.html
 cd - || exit
 chmod +x /src/FILES/etc/*
 chmod +x /src/FILES/usr/bin/*
