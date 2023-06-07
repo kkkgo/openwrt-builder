@@ -15,20 +15,10 @@ sed -i '/mkisofs -R/i \	sh /src/build.sh "$(TARGET_DIR)" "$@.boot"' ./target/lin
 mkdir -p /src/builder/clash-premium/
 
 # mmdb
-curl -sLo /src/builder/Country.mmdb https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb
+curl -sLo /src/builder/Country.mmdb https://raw.githubusercontent.com/kkkgo/Country-only-cn-private.mmdb/main/Country-only-cn-private.mmdb
 mmdb_hash=$(sha256sum /src/builder/Country.mmdb | grep -Eo "[a-zA-Z0-9]{64}" | head -1)
-mmdb_down_hash=$(curl -s https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb.sha256sum | grep -Eo "[a-zA-Z0-9]{64}" | head -1)
+mmdb_down_hash=$(curl -s https://raw.githubusercontent.com/kkkgo/Country-only-cn-private.mmdb/main/Country-only-cn-private.mmdb.sha256sum | grep -Eo "[a-zA-Z0-9]{64}" | head -1)
 if [ "$mmdb_down_hash" != "$mmdb_hash" ]; then
     cp /mmdb_down_hash_error .
     exit
 fi
-
-# big mmdb
-curl -sLo /src/builder/Country-full.mmdb https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
-mmdbfull_hash=$(sha256sum /src/builder/Country-full.mmdb | grep -Eo "[a-zA-Z0-9]{64}" | head -1)
-mmdbfull_down_hash=$(curl -s https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb.sha256sum | grep -Eo "[a-zA-Z0-9]{64}" | head -1)
-if [ "$mmdbfull_down_hash" != "$mmdbfull_hash" ]; then
-    cp /mmdbfull_down_hash_error .
-    exit
-fi
-
