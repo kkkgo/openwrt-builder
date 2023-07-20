@@ -17,6 +17,7 @@ FROM soft
 WORKDIR /src/
 ENV FORCE_UNSAFE_CONFIGURE=1
 COPY --from=tar /src/builder /src/
+COPY --from=tar /src/Country.mmdb /src/
 COPY ./build.sh /src/
 COPY ./7z.sh /src/
 CMD bash /src/build.sh
