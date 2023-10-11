@@ -3,8 +3,8 @@ cd /src/builder || exit
 grep -E 'CONFIG_PACKAGE.+(kmod|firmware)' /src/builder/.config | grep -E "is not set|=" | grep -Eo "CONFIG_PACKAGE[-_a-zA-Z0-9]+" | sed "s/CONFIG_PACKAGE_//g" | \
 grep -Ev "kmod-siit|-dummy|tunnel|qemu|-usb|-atusb|kmod-input|kmod-wil|-raid|kmod-leds|bigclown| \
 bluetooth|wireless|ar3k-|ath[0-9]+k|brcmsmac|brcmfmac|-sdio|openvswitch|kmod-ath| \
-ip6|tun|kmod-sit|-vti|gre|mac80211|pan|sched|-fou| \
-ipsec|ipip|vxlan|geneve|8021| \
+ip6|tun|kmod-sit|-vti|gre|mac80211|pan|sched|-fou|rxrpc|sctp| \
+ipsec|ipip|vxlan|geneve|8021|chaoskey|ds2490|bcm63xx|mt7601u|carl9170|ar5523|brcmfmac|rtl8xxxu|rtl8812au-ct|kmod-ppp|wireguard| \
 mpls|slip|multipath|kmod-ip|-ipv4|-ipv6|-ip6-|-ip4-|l2tp|pptp|bmx7| \
 wifi|iwl|sound|video|pcmcia|gpio|kmod-ipt-|kmod-nf-|kmod-nft-|kmod-fs-" | sort -u >/src/builder/allmod.list
 cat /src/builder/allmod.list /src/builder/download.pkg | sort -u >/src/builder/pre.pkg
