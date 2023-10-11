@@ -1,6 +1,6 @@
 #!/bin/sh
 cd /src/builder || exit
-grep -E 'CONFIG_PACKAGE.+(kmod|firmware)' /src/builder/.config | grep -E "is not set|=" | grep -Eo "CONFIG_PACKAGE[-_a-zA-Z0-9]+" | sed "s/CONFIG_PACKAGE_//g" | grep -Ev "qemu|bigclown|sound|video|pcmcia|gpio|kmod-ipt-|kmod-nf-|kmod-fs-" | sort -u >/src/builder/allmod.list
+grep -E 'CONFIG_PACKAGE.+(kmod|firmware)' /src/builder/.config | grep -E "is not set|=" | grep -Eo "CONFIG_PACKAGE[-_a-zA-Z0-9]+" | sed "s/CONFIG_PACKAGE_//g" | grep -Ev "kmod-usb|qemu|bigclown|bluetooth|wireless|wifi|sound|video|pcmcia|gpio|kmod-ipt-|kmod-nf-|kmod-nft-|kmod-fs-" | sort -u >/src/builder/allmod.list
 cat /src/builder/allmod.list /src/builder/download.pkg | sort -u >/src/builder/pre.pkg
 while read line; do
     pkg="$pkg $line"
