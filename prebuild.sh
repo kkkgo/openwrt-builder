@@ -1,6 +1,9 @@
 #!/bin/sh
 cd /src/builder || exit
-grep -E 'CONFIG_PACKAGE.+(kmod|firmware)' /src/builder/.config | grep -E "is not set|=" | grep -Eo "CONFIG_PACKAGE[-_a-zA-Z0-9]+" | sed "s/CONFIG_PACKAGE_//g" | grep -Ev "kmod-siit|-dummy|tunnel|qemu|-usb|-atusb|kmod-input|kmod-wil|-raid|kmod-leds|bigclown|bluetooth|wireless|wifi|iwl|sound|video|pcmcia|gpio|kmod-ipt-|kmod-nf-|kmod-nft-|kmod-fs-|ath10k-|brcmsmac|brcmfmac|-sdio|openvswitch|-ath" | sort -u >/src/builder/allmod.list
+grep -E 'CONFIG_PACKAGE.+(kmod|firmware)' /src/builder/.config | grep -E "is not set|=" | grep -Eo "CONFIG_PACKAGE[-_a-zA-Z0-9]+" | sed "s/CONFIG_PACKAGE_//g" | \
+grep -Ev "kmod-siit|-dummy|tunnel|qemu|-usb|-atusb|kmod-input|kmod-wil|-raid|kmod-leds|bigclown| \
+bluetooth|wireless|ar3k-|ath[0-9]+k|brcmsmac|brcmfmac|-sdio|openvswitch|kmod-ath| \
+wifi|iwl|sound|video|pcmcia|gpio|kmod-ipt-|kmod-nf-|kmod-nft-|kmod-fs-" | sort -u >/src/builder/allmod.list
 cat /src/builder/allmod.list /src/builder/download.pkg | sort -u >/src/builder/pre.pkg
 while read line; do
     pkg="$pkg $line"
