@@ -1,8 +1,10 @@
 #!/bin/sh
 cd /src/builder || exit
+grep -E 'CONFIG_PACKAGE.+(kmod|firmware)' /src/builder/.config | grep -E "is not set|=" | grep -Eo "CONFIG_PACKAGE[-_a-zA-Z0-9]+" | sed "s/CONFIG_PACKAGE_//g" | sort -u >/src/builder/allmod.list
+cat /src/builder/allmod.list /src/builder/download.pkg | sort -u >/src/builder/pre.pkg
 while read line; do
     pkg="$pkg $line"
-done </src/builder/download.pkg
+done </src/builder/pre.pkg
 echo PACKAGES="$pkg"
 make image PROFILE="generic" PACKAGES="$pkg"
 rm /src/builder/bin/targets/x86/64/*

@@ -11,9 +11,14 @@ cd /src || exit
 grep -v "#" custom.config.sh | grep . >>/src/.config
 if [ -f /src/pkg.conf ]; then
     pkgf=/src/pkg.conf
+    if [ "$FULLMOD" = "yes" ]; then
+        cat /src/pkg.conf /src/allmod.list | sort -u >/src/pkgfull.conf
+        cat /src/pkgfull.conf >/src/pkg.conf
+    fi
 else
     pkgf=/src/download.pkg
 fi
+
 while read line; do
     pkg="$pkg $line"
 done <$pkgf

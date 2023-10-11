@@ -16,6 +16,7 @@ COPY --from=ghcr.io/dreamacro/clash /clash /src/builder/
 FROM soft
 WORKDIR /src/
 ENV FORCE_UNSAFE_CONFIGURE=1
+ENV FULLMOD=no
 COPY --from=tar /src/builder /src/
 COPY --from=tar /src/Country.mmdb /src/
 COPY ./build.sh /src/
