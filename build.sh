@@ -12,8 +12,9 @@ grep -v "#" custom.config.sh | grep . >>/src/.config
 if [ -f /src/pkg.conf ]; then
     pkgf=/src/pkg.conf
     if [ "$FULLMOD" = "yes" ]; then
-        cat /src/pkg.conf /src/allmod.list | sort -u >/src/pkgfull.conf
-        cat /src/pkgfull.conf >/src/pkg.conf
+        grep -Ev "^-.*(kmod|firmware)" /src/pkg.conf >/src/corepkg.conf
+        cat /src/corepkg.conf /src/allmod.list | sort -u >/src/pkgfull.conf
+        pkgf=/src/pkgfull.conf
     fi
 else
     pkgf=/src/download.pkg
