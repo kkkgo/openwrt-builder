@@ -236,8 +236,8 @@ done </src/builder/pre.pkg
 echo PACKAGES="$pkg"
 make image PROFILE="generic" PACKAGES="$pkg"
 rm /src/builder/bin/targets/x86/64/*
-rm -rf /src/builder/build_dir/
-mkdir -p /src/builder/build_dir/
+rm -rf /src/builder/build_dir/target-x86_64_musl/linux-x86_64/
+mkdir -p /src/builder/build_dir/target-x86_64_musl/linux-x86_64/
 sed -i 's/package_reload:/package_reloads:/' Makefile
 sed -i '/package_reloads:/i package_reload:\n\techo fake reload.\n\tmkdir -p /src/build_dir/target-x86_64_musl/root-x86//tmp/' Makefile
 sed -i 's/checksum: FORCE/checksums:/' Makefile
