@@ -229,6 +229,17 @@ for regex in $filtermod; do
     sed -i -E "/$regex/d" /src/builder/allmod.list
 done
 
+addmod="
+acpid
+qemu-ga
+open-vm-tools
+"
+echo "" >>/src/builder/allmod.list
+for regex in $addmod; do
+    echo "$regex" >> /src/builder/allmod.list
+done
+echo "" >>/src/builder/allmod.list
+
 cat /src/builder/allmod.list /src/builder/download.pkg | sort -u >/src/builder/pre.pkg
 while read line; do
     pkg="$pkg $line"
