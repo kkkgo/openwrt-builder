@@ -20,7 +20,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: build
-        run: ls -lah && sh ./6088/build.sh
+        run: docker run --name 6088 -it -v$(pwd):/src/bin/targets/ sliamb/opbuilder:6088 make -j4 V=S
+      - name: pack
+        run: tar -czvf 6088bin.tar.gz ./mediatek/mt7986
       - name: Upload bin
         uses: actions/upload-artifact@v4
         with:
