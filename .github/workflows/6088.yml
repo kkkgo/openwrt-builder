@@ -1,4 +1,4 @@
-name: Push build AMD64
+name: Push 6088
 on:
   # schedule:
   #   - cron: '00 20 * * *'
@@ -7,7 +7,6 @@ on:
       - 'README.md'
       - '.github/**'
       - 'LICENSE'
-      - '6088'
   workflow_dispatch:
 jobs:
   build:
@@ -25,6 +24,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          context: ./6088
           push: true
           platforms: linux/amd64
-          tags: sliamb/opbuilder:latest
+          tags: sliamb/opbuilder:6088
