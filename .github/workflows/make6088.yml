@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: build
-        run: docker run --name 6088 -it -v$(pwd):/src/bin/targets/ sliamb/opbuilder:6088 make -j4 V=S
+        run: docker run --name 6088 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:6088 make -j4 V=S
       - name: pack
         run: tar -czvf 6088bin.tar.gz ./mediatek/mt7986
       - name: Upload bin
