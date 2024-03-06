@@ -28,8 +28,10 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: sliamb/opbuilder:6088
-      # - name: Upload the Docker image
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #       name: 6088bin.tar.gz
-      #       path: 6088bin.tar.gz
+      - name: pack
+        run: sh pack.sh
+      - name: Upload bin
+        uses: actions/upload-artifact@v4
+        with:
+            name: 6088bin.tar.gz
+            path: 6088bin.tar.gz
