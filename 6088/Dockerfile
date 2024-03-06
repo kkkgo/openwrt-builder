@@ -9,3 +9,8 @@ WORKDIR /src
 RUN git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git /src
 RUN ./scripts/feeds update -a
 RUN ./scripts/feeds install -a
+RUN cp -f defconfig/mt7986-ax6000.config .config
+RUN make -j2
+
+FROM git
+CMD bash
