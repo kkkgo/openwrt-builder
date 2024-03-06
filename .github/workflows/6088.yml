@@ -24,7 +24,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./6088
+          context: "{{defaultContext}}:6088"
           push: true
           platforms: linux/amd64
           tags: sliamb/opbuilder:6088
