@@ -11,7 +11,8 @@ RUN ./scripts/feeds update -a
 RUN ./scripts/feeds install -a
 COPY .config .config
 ENV FORCE_UNSAFE_CONFIGURE=1
-RUN make -j4 V=S
+RUN make download
 
 FROM git
+WORKDIR /src
 CMD bash
