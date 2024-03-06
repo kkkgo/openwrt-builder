@@ -1,4 +1,4 @@
-name: Push 6088
+name: make 6088
 on:
   # schedule:
   #   - cron: '00 20 * * *'
@@ -19,15 +19,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: "{{defaultContext}}:6088"
-          push: true
-          platforms: linux/amd64
-          tags: sliamb/opbuilder:6088
       - name: build
-        run: sh ./6088/build.sh
+        run: ls -lah && sh ./6088/build.sh
       - name: Upload bin
         uses: actions/upload-artifact@v4
         with:
