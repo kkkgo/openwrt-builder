@@ -1,4 +1,4 @@
-name: Push 6088
+name: push make 6088 docker bin
 on:
   # schedule:
   #   - cron: '00 20 * * *'
