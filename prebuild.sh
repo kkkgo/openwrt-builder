@@ -225,6 +225,8 @@ wl12xx
 wl18xx
 kmod-i2c-algo-bit
 kmod-fs-vfat
+pfring
+pf-ring
 "
 
 for regex in $filtermod; do
