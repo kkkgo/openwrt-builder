@@ -223,6 +223,8 @@ wireguard
 wireless
 wl12xx
 wl18xx
+kmod-i2c-algo-bit
+kmod-fs-vfat
 "
 
 for regex in $filtermod; do
