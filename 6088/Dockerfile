@@ -6,7 +6,7 @@ RUN apt-get update -y &&DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --
 
 FROM soft AS git
 WORKDIR /src
-RUN git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git /src
+RUN git clone --depth=1 https://github.com/padavanonly/immortalwrt-mt798x.git /src
 RUN ./scripts/feeds update -a
 RUN ./scripts/feeds install -a
 COPY .config .config
