@@ -27,7 +27,7 @@ jobs:
           platforms: linux/amd64
           tags: sliamb/opbuilder:6088
       - name: build
-        run: docker run --name 6088 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:6088 make -j1 V=sc
+        run: docker run --name 6088 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:6088
       - name: pack
         run: tar -czvf 6088bin.tar.gz ./mediatek/mt7986
       - name: Upload bin
