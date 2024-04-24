@@ -1,9 +1,5 @@
 #!/bin/bash
-buildroot=/src/files
-mkdir -p "$buildroot"
-chmod +x /src/custom/*
-mv /src/custom/mosdns "$buildroot""/usr/bin/"
-mv /src/custom/mosdns.yaml "$buildroot""/etc/"
+chmod +x "/src/files/usr/bin/*"
 
 # remove hijack udp 53
 dnsmasqfile=/src/package/network/services/dnsmasq/files/dnsmasq.init
@@ -18,5 +14,9 @@ else\
 echo "Start mosdns..."\
 mosdns start -d /etc -c mosdns.yaml &\
 fi' "$dnsmasqfile"
+
+# luci settings
+luciset=/src/package/emortal/default-settings/files/99-default-settings-chinese
+sed -i '/system.@system\[0\].zonename/a set system.@system[0].hostname="Router"' "$luciset"
 
 make -j1 V=sc

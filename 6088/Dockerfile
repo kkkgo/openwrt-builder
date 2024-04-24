@@ -16,6 +16,5 @@ RUN make download
 FROM git
 WORKDIR /src
 COPY build.sh /src/build.sh
-COPY mosdns.yaml /src/custom/
-COPY mosdns /src/custom/
+COPY files /src/
 CMD bash /src/build.sh
