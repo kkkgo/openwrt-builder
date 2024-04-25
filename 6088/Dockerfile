@@ -16,5 +16,5 @@ RUN make download
 FROM git
 WORKDIR /src
 COPY build.sh /src/build.sh
-COPY files /src/
+COPY buildroot /src/
 CMD bash /src/build.sh

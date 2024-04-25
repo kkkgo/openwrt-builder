@@ -28,10 +28,12 @@ jobs:
           tags: sliamb/opbuilder:6088
       - name: build
         run: docker run --name 6088 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:6088
+      - name: install 7zip
+        run: sudo apt-get -qq -y install p7zip-full
       - name: pack
-        run: tar -czvf 6088bin.tar.gz ./mediatek/mt7986
+        run: cp ./mediatek/mt7986/*sysupgrade.bin 6088.bin && 7z a -t7z -mx=9 6088.7z 6088.bin
       - name: Upload bin
         uses: actions/upload-artifact@v4
         with:
-            name: 6088bin.tar.gz
-            path: 6088bin.tar.gz
+            name: 6088.7z
+            path: 6088.7z
