@@ -1,7 +1,46 @@
-FROM ubuntu AS soft
-RUN sed -i 's/archive\.ubuntu\.com/azure.archive.ubuntu.com/g' /etc/apt/sources.list && \
-    sed -i 's/security\.ubuntu\.com/azure.archive.ubuntu.com/g' /etc/apt/sources.list
-RUN apt-get update && apt-get -qq install tree p7zip-full curl nano vim mkisofs elfutils libelf-dev libiconv-hook-dev autofs build-essential clang flex g++ gawk gcc-multilib gettext git libncurses5-dev libssl-dev python3-distutils python3-pyelftools libpython3-dev rsync unzip zlib1g-dev swig aria2 jq subversion qemu-utils ccache rename libelf-dev device-tree-compiler libgnutls28-dev build-essential libncurses5-dev libncursesw5-dev zlib1g-dev gawk git gettext libssl-dev xsltproc rsync wget unzip python3 make python3-distutils file qemu-utils
+FROM alpine:edge AS soft
+RUN apk update && apk upgrade && apk add --no-cache \
+    'argp-standalone' \
+    'asciidoc' \
+    'bash' \
+    'bc' \
+    'binutils' \
+    'bzip2' \
+    'cdrkit' \
+    'coreutils' \
+    'diffutils' \
+    'elfutils-dev' \
+    'findutils' \
+    'flex' \
+    'g++' \
+    'gawk' \
+    'gcc' \
+    'gettext' \
+    'git' \
+    'grep' \
+    'gzip' \
+    'intltool' \
+    'libxslt' \
+    'linux-headers' \
+    'make' \
+    'musl-fts-dev' \
+    'musl-libintl' \
+    'musl-obstack-dev' \
+    'ncurses-dev' \
+    'openssl-dev' \
+    'patch' \
+    'perl' \
+    'python3-dev' \
+    'rsync' \
+    'tar' \
+    'unzip' \
+    'util-linux' \
+    'wget' \
+    'zlib-dev' \
+    'curl' \
+    'py3-setuptools' \
+  && \
+  ln -s '/usr/lib/libncurses.so' '/usr/lib/libtinfo.so'
 
 FROM soft AS tar
 WORKDIR /src
