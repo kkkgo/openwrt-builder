@@ -12,4 +12,4 @@ echo "Start mosdns..."\
 mosdns start -d /etc -c mosdns.yaml &\
 fi' "$dnsmasqfile"
 
-make -j1 V=sc
+make -j3 V=sc

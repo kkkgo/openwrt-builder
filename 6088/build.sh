@@ -19,4 +19,4 @@ fi' "$dnsmasqfile"
 luciset=/src/package/emortal/default-settings/files/99-default-settings-chinese
 sed -i '/system.@system\[0\].zonename/a set system.@system[0].hostname="Router"' "$luciset"
 
-make -j1 V=sc
+make -j3 V=sc
