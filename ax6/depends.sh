@@ -5,5 +5,5 @@ apt-get -yqq full-upgrade
 apt-get -yqq autoremove --purge
 apt-get -yqq autoclean
 apt-get -yqq clean
-DEBIAN_FRONTEND=noninteractive apt-get -yqq install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler dos2unix ecj fakeroot fastjar flex g++-multilib gawk gcc-multilib genisoimage gettext git gnutls-dev gperf haveged help2man intltool jq lib32gcc-s1 libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5 libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool libyaml-dev libz-dev lld llvm lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2 python3 python3-docutils python3-pip python3-ply python3-pyelftools qemu-utils quilt re2c rsync scons squashfs-tools subversion swig texinfo uglifyjs unzip upx-ucl vim wget xmlto xxd zlib1g-dev zstd
-timedatectl set-timezone "Asia/Shanghai"
+apt-get -yqq update
+DEBIAN_FRONTEND=noninteractive apt-get -yqq install tree p7zip-full curl nano vim mkisofs elfutils libelf-dev libiconv-hook-dev autofs build-essential clang flex g++ gawk gcc-multilib gettext git libncurses5-dev libssl-dev python3-distutils python3-pyelftools libpython3-dev rsync unzip zlib1g-dev swig aria2 jq subversion qemu-utils ccache rename libelf-dev device-tree-compiler libgnutls28-dev build-essential libncurses5-dev libncursesw5-dev zlib1g-dev gawk git gettext libssl-dev xsltproc rsync wget unzip python3 make python3-distutils file qemu-utils
