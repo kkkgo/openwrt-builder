@@ -1,10 +1,47 @@
-FROM ubuntu AS soft
-RUN sed -i 's/archive\.ubuntu\.com/azure.archive.ubuntu.com/g' /etc/apt/sources.list && \
-    sed -i 's/security\.ubuntu\.com/azure.archive.ubuntu.com/g' /etc/apt/sources.list
-RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
-COPY depends.sh .
-RUN bash depends.sh
-
+FROM alpine:edge AS soft
+RUN apk update && apk upgrade && apk add --no-cache \
+    'argp-standalone' \
+    'asciidoc' \
+    'bash' \
+    'bc' \
+    'binutils' \
+    'bzip2' \
+    'cdrkit' \
+    'coreutils' \
+    'diffutils' \
+    'elfutils-dev' \
+    'findutils' \
+    'flex' \
+    'g++' \
+    'gawk' \
+    'gcc' \
+    'gettext' \
+    'git' \
+    'grep' \
+    'gzip' \
+    'intltool' \
+    'libxslt' \
+    'linux-headers' \
+    'make' \
+    'musl-fts-dev' \
+    'musl-libintl' \
+    'musl-obstack-dev' \
+    'ncurses-dev' \
+    'openssl-dev' \
+    'patch' \
+    'perl' \
+    'python3-dev' \
+    'rsync' \
+    'tar' \
+    'unzip' \
+    'util-linux' \
+    'wget' \
+    'zlib-dev' \
+    'curl' \
+    'py3-setuptools' \
+  && \
+  ln -s '/usr/lib/libncurses.so' '/usr/lib/libtinfo.so'
+  
 FROM soft AS git
 WORKDIR /src
 RUN git clone --depth=1 https://github.com/padavanonly/immortalwrt-mt798x.git /src
