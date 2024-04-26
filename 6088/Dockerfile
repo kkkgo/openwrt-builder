@@ -44,6 +44,7 @@ RUN apk update && apk upgrade && apk add --no-cache \
     'libc-dev' \
     'perl-dev' \
     'build-base' \
+    'musl-dev' \
     'py3-setuptools' \
   && \
   ln -s '/usr/lib/libncurses.so' '/usr/lib/libtinfo.so'
