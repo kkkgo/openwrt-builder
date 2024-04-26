@@ -38,6 +38,12 @@ RUN apk update && apk upgrade && apk add --no-cache \
     'wget' \
     'zlib-dev' \
     'curl' \
+    'libtool' \
+    'autoconf' \
+    'automake' \
+    'libc-dev' \
+    'perl-dev' \
+    'build-base' \
     'py3-setuptools' \
   && \
   ln -s '/usr/lib/libncurses.so' '/usr/lib/libtinfo.so'
