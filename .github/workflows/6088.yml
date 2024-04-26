@@ -21,8 +21,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: install 7zip
         run: sudo apt-get -qq -y install p7zip-full
-      - name: Pure env
-        run: rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+      - name: Maximize Build Space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 5120
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
