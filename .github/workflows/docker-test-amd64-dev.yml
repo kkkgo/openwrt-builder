@@ -8,7 +8,6 @@ on:
       - '.github/**'
       - 'LICENSE'
       - '6088/**'
-      - '6088ib/**'
       - 'ax6/**'
   workflow_dispatch:
 jobs:
