@@ -19,5 +19,5 @@ FROM git
 WORKDIR /src
 COPY build.sh /src/build.sh
 COPY buildroot /src/
-RUN make -j3 V=s
+RUN make -j2 V=s
 CMD bash /src/build.sh
