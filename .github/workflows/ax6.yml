@@ -53,12 +53,12 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: sliamb/opbuilder:ax6
-      - name: build
-        run: docker run --name ax6 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:ax6
-      - name: pack
-        run: ls -lah ./qualcommax/ipq807x/* && cp ./qualcommax/ipq807x/*sysupgrade.bin ax6.bin && 7z a -t7z -mx=9 ax6.7z ax6.bin
-      - name: Upload bin
-        uses: actions/upload-artifact@v4
-        with:
-            name: ax6.7z
-            path: ax6.7z
+      # - name: build
+      #   run: docker run --name ax6 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:ax6
+      # - name: pack
+      #   run: ls -lah ./qualcommax/ipq807x/* && cp ./qualcommax/ipq807x/*sysupgrade.bin ax6.bin && 7z a -t7z -mx=9 ax6.7z ax6.bin
+      # - name: Upload bin
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #       name: ax6.7z
+      #       path: ax6.7z
