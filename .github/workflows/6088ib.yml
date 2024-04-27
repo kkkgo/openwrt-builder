@@ -1,15 +1,10 @@
-name: Push build AMD64
+name: push make 6088ib docker bin
 on:
   # schedule:
   #   - cron: '00 20 * * *'
   push:
-    paths-ignore:
-      - 'README.md'
-      - '.github/**'
-      - 'LICENSE'
-      - '6088/**'
-      - '6088ib/**'
-      - 'ax6/**'
+    paths:
+        - '6088ib/**'
   workflow_dispatch:
 jobs:
   build:
@@ -24,9 +19,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: install 7zip
+        run: sudo apt-get -qq -y install p7zip-full
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          context: "{{defaultContext}}:6088ib"
           push: true
           platforms: linux/amd64
-          tags: sliamb/opbuilder:latest
+          tags: sliamb/opbuilder:6088ib
