@@ -71,10 +71,10 @@ RUN apk update && apk upgrade && apk add --no-cache \
 
 FROM newsoft
 WORKDIR /
-COPY --from=ibax6 /src/bin/targets/qualcommax/ipq807x/*.tar.xz .
-RUN tar -xvf *.tar.xz && rm *.tar.xz && mv *image* src
+COPY --from=ibax6 /src/bin/targets/qualcommax/ipq807x/openwrt-imagebuilder-qualcommax-ipq807x.Linux-x86_64.tar.zst .
+RUN tar -xvf *.zst && rm *.zst && mv *imagebuilder* src
 WORKDIR /src
-COPY --from=ibax6 /src/bin/targets/qualcommax/ipq807x/*.manifest /src/
+COPY --from=ibax6 /src/bin/targets/qualcommax/ipq807x/openwrt-qualcommax-ipq807x-redmi_ax6.manifest /src/
 COPY ib.sh /src/ib.sh
 COPY buildroot /src/
 CMD sh ib.sh

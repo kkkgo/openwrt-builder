@@ -354,3 +354,4 @@ zram-swap
 -luci-app-usb-printer
 -luci-i18n-usb-printer-zh-cn
 -uboot-envtool
+curl
