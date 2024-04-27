@@ -1,3 +1,7 @@
 #!/bin/sh
-make image PROFILE=tplink_tl-xdr6088  PACKAGES="-luci-app-filetransfer -luci-app-usb-printer -luci-i18n-u
-sb-printer-zh-cn -uboot-envtool"
+chmod +x /src/files/usr/bin/*
+while read line; do
+    pkg="$pkg $line"
+done </src/ib.pkg
+echo PACKAGES="$pkg"
+make image PROFILE=tplink_tl-xdr6088 PACKAGES="$pkg" FILES="files" 

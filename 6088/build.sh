@@ -1,5 +1,5 @@
 #!/bin/bash
-chmod +x "/src/files/usr/bin/*"
+chmod +x /src/files/usr/bin/*
 
 # remove hijack udp 53
 dnsmasqfile=/src/package/network/services/dnsmasq/files/dnsmasq.init

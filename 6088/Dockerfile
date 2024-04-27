@@ -72,5 +72,6 @@ RUN tar -xvf *.tar.xz && rm *.tar.xz && mv *image* src
 WORKDIR /src
 COPY --from=ib6088 /src/bin/targets/mediatek/mt7986/immortalwrt-mediatek-mt7986-tplink_tl-xdr6088.manifest /src/
 COPY ib.sh /src/ib.sh
+COPY ib.pkg /src/ib.pkg
 COPY buildroot /src/
 CMD sh ib.sh
