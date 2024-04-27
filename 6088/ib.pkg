@@ -20,7 +20,7 @@ default-settings
 default-settings-chn
 dnsmasq-full
 dropbear
-e2fsprogs
+-e2fsprogs
 ebtables
 etherwake
 ethtool
@@ -97,10 +97,10 @@ kmod-ebtables
 kmod-ebtables-ipv4
 kmod-ebtables-ipv6
 kmod-fs-autofs4
-kmod-fs-exfat
-kmod-fs-ext4
-kmod-fs-ntfs3
-kmod-fs-vfat
+-kmod-fs-exfat
+-kmod-fs-ext4
+-kmod-fs-ntfs3
+-kmod-fs-vfat
 kmod-gpio-button-hotplug
 kmod-ifb
 kmod-inet-diag
@@ -302,7 +302,7 @@ mtwifi-cfg
 mwan3
 nano
 netifd
-ntfs3-mount
+-ntfs3-mount
 odhcp6c
 odhcpd-ipv6only
 openssh-keygen
