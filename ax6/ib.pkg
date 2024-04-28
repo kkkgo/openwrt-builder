@@ -8,6 +8,7 @@ bind-nslookup
 busybox
 ca-bundle
 cgi-io
+curl
 dnsmasq
 dropbear
 e2fsprogs
@@ -19,6 +20,7 @@ fwtool
 getrandom
 gre
 hostapd-common
+htop
 ip-tiny
 ip6tables-nft
 ipset
@@ -61,7 +63,7 @@ kmod-crypto-sha1
 kmod-crypto-sha256
 kmod-crypto-sha3
 kmod-crypto-sha512
--kmod-fs-ext4
+kmod-fs-ext4
 kmod-gpio-button-hotplug
 kmod-gre
 kmod-gre6
@@ -75,6 +77,7 @@ kmod-ipt-core
 kmod-ipt-ipopt
 kmod-ipt-ipset
 kmod-ipt-nat
+kmod-ipt-nathelper-rtsp
 kmod-iptunnel
 kmod-iptunnel4
 kmod-iptunnel6
@@ -98,6 +101,7 @@ kmod-nf-nat
 kmod-nf-reject
 kmod-nf-reject6
 kmod-nfnetlink
+kmod-nft-bridge
 kmod-nft-compat
 kmod-nft-core
 kmod-nft-fib
@@ -134,7 +138,6 @@ kmod-qca-nss-ecm
 kmod-qca-ssdk
 kmod-qrtr
 kmod-qrtr-smd
-kmod-sched-connmark
 kmod-sched-core
 kmod-sit
 kmod-slhc
@@ -159,9 +162,10 @@ libc
 libcap
 libcap-ng
 libcomerr0
+libcurl4
 libe2p2
 libelf1
--libext2fs2
+libext2fs2
 libgcc1
 libipset13
 libiptext-nft0
@@ -186,10 +190,12 @@ libnl-tiny1
 libopenssl-conf
 libopenssl-legacy
 libopenssl3
+libpcre2
 libpthread
+libqrencode
 librt
 libsmartcols1
--libss2
+libss2
 libstdcpp6
 libubox20240329
 libubus-lua
@@ -201,7 +207,7 @@ libudebug
 libustream-mbedtls20201210
 libuuid1
 libuv1
-libwolfssl5.7.0.e624513f
+libwebsockets-full
 libxtables12
 logd
 losetup
@@ -209,9 +215,8 @@ lua
 luci
 luci-app-firewall
 luci-app-mwan3
-luci-app-openvpn
 luci-app-opkg
-luci-app-qos
+luci-app-ttyd
 luci-app-upnp
 luci-app-wol
 luci-base
@@ -219,9 +224,8 @@ luci-compat
 luci-i18n-base-zh-cn
 luci-i18n-firewall-zh-cn
 luci-i18n-mwan3-zh-cn
-luci-i18n-openvpn-zh-cn
 luci-i18n-opkg-zh-cn
-luci-i18n-qos-zh-cn
+luci-i18n-ttyd-zh-cn
 luci-i18n-upnp-zh-cn
 luci-i18n-wol-zh-cn
 luci-lib-base
@@ -242,17 +246,16 @@ luci-proto-ppp
 luci-proto-relay
 luci-proto-wireguard
 luci-theme-bootstrap
+mhz
 miniupnpd-nftables
 mtd
 mwan3
 netifd
 nftables-json
-nss-eip-firmware
 nss-firmware-default
 nss-firmware-ipq8074
 odhcp6c
 odhcpd-ipv6only
-openssl-util
 openwrt-keyring
 opkg
 ppp
@@ -261,7 +264,7 @@ procd
 procd-seccomp
 procd-ujail
 qca-ssdk-shell
-qos-scripts
+qrencode
 relayd
 resolveip
 rpcd
@@ -270,10 +273,10 @@ rpcd-mod-iwinfo
 rpcd-mod-luci
 rpcd-mod-rrdns
 rpcd-mod-ucode
-tailscale
 tc-full
 tc-mod-iptables
 terminfo
+ttyd
 ubi-utils
 uboot-envtools
 ubox
@@ -296,6 +299,7 @@ uhttpd-mod-ubus
 urandom-seed
 urngd
 usign
+wget-ssl
 wifi-scripts
 wireguard-tools
 wireless-regdb
@@ -303,4 +307,3 @@ wpad-openssl
 xtables-nft
 zerotier
 zlib
-curl

@@ -16,4 +16,4 @@ fi' "$dnsmasqfile"
 sed -i "s/e2fsprogs//g" /src/target/linux/qualcommax/Makefile
 sed -i "s/ kmod-fs-ext4//g" /src/target/linux/qualcommax/Makefile
 sed -i "s/ uboot-envtools//g" /src/target/linux/qualcommax/Makefile
-make -j4 V=sc
+make -j1 V=sc
