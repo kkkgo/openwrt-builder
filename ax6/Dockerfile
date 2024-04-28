@@ -15,9 +15,9 @@ RUN ./scripts/feeds update zerotier
 RUN ./scripts/feeds install zerotier
 COPY .config .config
 ENV FORCE_UNSAFE_CONFIGURE=1
-RUN make download V=s
-RUN make tools/install V=s
-RUN make toolchain/install V=s
+RUN make download -j4 V=s
+RUN make tools/install -j4  V=s
+RUN make toolchain/install -j4 V=s
 FROM git AS ibax6
 WORKDIR /src
 COPY build.sh /src/build.sh
