@@ -194,7 +194,7 @@ libcap-ng
 libcbor0
 libcomerr0
 libevdev
-libext2fs2
+-libext2fs2
 libfdisk1
 libfido2-1
 libgcc1
@@ -234,7 +234,7 @@ libpcre2
 libpthread
 librt
 libsmartcols1
-libss2
+-libss2
 libstdcpp6
 libubox20210516
 libubus-lua

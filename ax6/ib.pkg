@@ -61,7 +61,7 @@ kmod-crypto-sha1
 kmod-crypto-sha256
 kmod-crypto-sha3
 kmod-crypto-sha512
-kmod-fs-ext4
+-kmod-fs-ext4
 kmod-gpio-button-hotplug
 kmod-gre
 kmod-gre6
@@ -161,7 +161,7 @@ libcap-ng
 libcomerr0
 libe2p2
 libelf1
-libext2fs2
+-libext2fs2
 libgcc1
 libipset13
 libiptext-nft0
@@ -189,7 +189,7 @@ libopenssl3
 libpthread
 librt
 libsmartcols1
-libss2
+-libss2
 libstdcpp6
 libubox20240329
 libubus-lua
