@@ -348,3 +348,7 @@ wrtbwmon
 zerotier
 zlib
 zram-swap
+-luci-app-filetransfer
+-luci-app-usb-printer
+-luci-i18n-usb-printer-zh-cn
+-uboot-envtool
