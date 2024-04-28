@@ -14,13 +14,13 @@ busybox
 ca-bundle
 ca-certificates
 cgi-io
+curl
 datconf
 datconf-lua
 default-settings
 default-settings-chn
 dnsmasq-full
 dropbear
--e2fsprogs
 ebtables
 etherwake
 ethtool
@@ -193,8 +193,8 @@ libc
 libcap-ng
 libcbor0
 libcomerr0
+libcurl4
 libevdev
--libext2fs2
 libfdisk1
 libfido2-1
 libgcc1
@@ -234,7 +234,6 @@ libpcre2
 libpthread
 librt
 libsmartcols1
--libss2
 libstdcpp6
 libubox20210516
 libubus-lua
@@ -302,7 +301,6 @@ mtwifi-cfg
 mwan3
 nano
 netifd
--ntfs3-mount
 odhcp6c
 odhcpd-ipv6only
 openssh-keygen
@@ -350,8 +348,3 @@ wrtbwmon
 zerotier
 zlib
 zram-swap
--luci-app-filetransfer
--luci-app-usb-printer
--luci-i18n-usb-printer-zh-cn
--uboot-envtool
-curl
