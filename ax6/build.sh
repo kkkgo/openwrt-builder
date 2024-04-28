@@ -12,4 +12,6 @@ echo "Start mosdns..."\
 mosdns start -d /etc -c mosdns.yaml &\
 fi' "$dnsmasqfile"
 
+# patch Makefile
+sed -i "s/e2fsprogs//g" | sed "s/ kmod-fs-ext4//g" | sed -i "s/ uboot-envtools//g" /src/target/linux/qualcommax/Makefile
 make -j4 V=sc
