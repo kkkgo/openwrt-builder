@@ -1,4 +1,8 @@
 #!/bin/bash
+git clone --depth=1 https://github.com/immortalwrt/immortalwrt.git /src
+./scripts/feeds update -a
+./scripts/feeds install -a
+
 chmod +x /src/files/usr/bin/*
 
 # remove hijack udp 53

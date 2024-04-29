@@ -7,16 +7,13 @@ RUN bash depends.sh
   
 FROM soft AS git
 WORKDIR /src
-RUN git clone --depth=1 https://github.com/immortalwrt/immortalwrt.git /src
-RUN ./scripts/feeds update -a
-RUN ./scripts/feeds install -a
 ENV FORCE_UNSAFE_CONFIGURE=1
 COPY buildroot /src/
-COPY patch.sh /src/patch.sh
+COPY make.sh /src/make.sh
 COPY ax6.config /src/ax6.config
 COPY 6088.config /src/6088.config
-RUN bash patch.sh
+RUN bash make.sh
 
-FROM soft AS immbuilder
+FROM soft
 COPY --from=git /src /src
 CMD bash
