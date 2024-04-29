@@ -4,25 +4,21 @@ RUN sed -i 's/archive\.ubuntu\.com/azure.archive.ubuntu.com/g' /etc/apt/sources.
 RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
 COPY depends.sh .
 RUN bash depends.sh
-
+  
 FROM soft AS git
 WORKDIR /src
-RUN git clone --depth=1 https://github.com/AgustinLorenzo/openwrt /src
-RUN echo "src-git zerotier https://github.com/mwarning/zerotier-openwrt.git" >> /src/feeds.conf.default
+RUN git clone --depth=1 https://github.com/immortalwrt/immortalwrt.git /src
 RUN ./scripts/feeds update -a
 RUN ./scripts/feeds install -a
-RUN ./scripts/feeds update zerotier
-RUN ./scripts/feeds install zerotier
 COPY .config .config
 ENV FORCE_UNSAFE_CONFIGURE=1
-RUN make download -j4 V=s
-RUN make tools/install -j4  V=s
-RUN make toolchain/install -j4 V=s
-FROM git AS ibax6
+RUN make download
+
+FROM git AS immax6
 WORKDIR /src
 COPY build.sh /src/build.sh
 COPY buildroot /src/
-RUN bash /src/build.sh
+RUN bash build.sh
 
 FROM alpine:edge AS newsoft
 RUN apk update && apk upgrade && apk add --no-cache \
@@ -71,10 +67,11 @@ RUN apk update && apk upgrade && apk add --no-cache \
 
 FROM newsoft
 WORKDIR /
-COPY --from=ibax6 /src/bin/targets/qualcommax/ipq807x/openwrt-imagebuilder-qualcommax-ipq807x.Linux-x86_64.tar.zst .
-RUN tar -xvf *.zst && rm *.zst && mv *imagebuilder* src
+COPY --from=immax6 /src/bin/targets/mediatek/mt7986/immortalwrt-imagebuilder-mediatek-mt7986.Linux-x86_64.tar.xz .
+RUN tar -xvf *.tar.xz && rm *.tar.xz && mv *image* src
 WORKDIR /src
-COPY --from=ibax6 /src/bin/targets/qualcommax/ipq807x/openwrt-qualcommax-ipq807x-redmi_ax6.manifest /src/
+COPY --from=immax6 /src/bin/targets/mediatek/mt7986/immortalwrt-mediatek-mt7986-tplink_tl-xdr6088.manifest /src/
 COPY ib.sh /src/ib.sh
+COPY ib.pkg /src/ib.pkg
 COPY buildroot /src/
 CMD sh ib.sh

@@ -56,7 +56,7 @@ jobs:
       - name: build
         run: docker run --name ax6 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:ax6
       - name: pack
-        run: ls -lah ./qualcommax/ipq807x/* && cp ./qualcommax/ipq807x/openwrt-qualcommax-ipq807x-redmi_ax6-squashfs-sysupgrade.bin ax6.bin && 7z a -t7z -mx=9 ax6.7z ax6.bin
+        run: ls -lah ./qualcommax/ipq807x/* && 7z a -t7z -mx=9 ./ax6.7z ./qualcommax/ipq807x/
       - name: Upload bin
         uses: actions/upload-artifact@v4
         with:

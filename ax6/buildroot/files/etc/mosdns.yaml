@@ -32,13 +32,13 @@ plugins:
 # no v6 dns
         - exec: cache 102400
         - matches: rcode 0
-          exec: accept
+          exec: ok
         - exec: $try_local
         - matches: has_wanted_ans
-          exec: accept
+          exec: ok
         - exec: $try_cn
         - exec: ttl 1
-        - exec: accept
+        - exec: ok
 
   - tag: udp_server
     type: udp_server
