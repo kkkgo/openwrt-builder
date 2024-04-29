@@ -12,7 +12,7 @@ RUN ./scripts/feeds update -a
 RUN ./scripts/feeds install -a
 COPY .config .config
 ENV FORCE_UNSAFE_CONFIGURE=1
-RUN make download
+RUN make download -j4
 
 FROM git AS immax6
 WORKDIR /src
@@ -67,10 +67,10 @@ RUN apk update && apk upgrade && apk add --no-cache \
 
 FROM newsoft
 WORKDIR /
-COPY --from=immax6 /src/bin/targets/mediatek/mt7986/immortalwrt-imagebuilder-mediatek-mt7986.Linux-x86_64.tar.xz .
-RUN tar -xvf *.tar.xz && rm *.tar.xz && mv *image* src
+COPY --from=immax6 /src/bin/targets/qualcommax/ipq807x/immortalwrt-imagebuilder-qualcommax-ipq807x.Linux-x86_64.tar.zst .
+RUN tar -xvf *.zst && rm *.tar.zst && mv *imagebuilder* src
 WORKDIR /src
-COPY --from=immax6 /src/bin/targets/mediatek/mt7986/immortalwrt-mediatek-mt7986-tplink_tl-xdr6088.manifest /src/
+COPY --from=immax6 /src/bin/targets/qualcommax/ipq807x/immortalwrt-qualcommax-ipq807x-redmi_ax6-stock.manifest /src/
 COPY ib.sh /src/ib.sh
 COPY ib.pkg /src/ib.pkg
 COPY buildroot /src/

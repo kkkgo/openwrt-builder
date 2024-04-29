@@ -4,4 +4,4 @@ while read line; do
     pkg="$pkg $line"
 done </src/ib.pkg
 echo PACKAGES="$pkg"
-make image PROFILE=redmi_ax6 PACKAGES="$pkg" FILES="files" 
+make image PROFILE=redmi_ax6-stock PACKAGES="$pkg" FILES="files" 
