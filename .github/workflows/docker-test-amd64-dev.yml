@@ -9,6 +9,7 @@ on:
       - 'LICENSE'
       - '6088/**'
       - 'ax6/**'
+      - 'imm/**'
   workflow_dispatch:
 jobs:
   build:
