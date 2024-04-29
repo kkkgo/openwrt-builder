@@ -17,7 +17,7 @@ RUN bash patch.sh
 # COPY ax6.config /src/.config
 # RUN make download -j4
 # RUN make -j4
-# COPY 6088.config /src/.config
-# RUN make download -j4
+COPY 6088.config /src/.config
+RUN make download -j4
 # RUN make -j4
 CMD bash
