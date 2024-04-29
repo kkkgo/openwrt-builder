@@ -44,6 +44,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Configure Docker to use custom directory
+        run: |
+            sudo mkdir -p /mnt/docker
+            echo '{"data-root": "/mnt/docker"}' | sudo tee /etc/docker/daemon.json
+            sudo systemctl restart docker
+        
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
