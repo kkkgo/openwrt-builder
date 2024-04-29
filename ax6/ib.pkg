@@ -1,4 +1,6 @@
 6in4
+aircrack-ng
+airmon-ng
 ath11k-firmware-ipq8074
 base-files
 bind-dig
@@ -23,6 +25,7 @@ default-settings-chn
 dnsmasq-full
 dropbear
 etherwake
+ethtool
 firewall4
 fstools
 fwtool
@@ -136,6 +139,7 @@ libcap-ng
 libcurl4
 libgcc1
 libgmp10
+libhwloc
 libipset13
 libiptext-nft0
 libiptext0
@@ -152,20 +156,26 @@ liblucihttp0
 libminiupnpc
 libmnl0
 libnatpmp1
+libncurses6
 libnetfilter-conntrack3
 libnettle8
 libnfnetlink0
 libnftnl11
 libnghttp2-14
+libnl-core200
+libnl-genl200
 libnl-tiny1
 libopenssl-conf
 libopenssl-legacy
 libopenssl3
+libpcap1
+libpciaccess
 libpcre2
 libpthread
 librrd1
 librt
 libsmartcols1
+libsqlite3-0
 libstdcpp6
 libubox20240329
 libubus-lua
@@ -183,6 +193,7 @@ logd
 losetup
 lua
 luci
+luci-app-advancedsetting
 luci-app-autoreboot
 luci-app-firewall
 luci-app-mwan3
@@ -192,10 +203,12 @@ luci-app-opkg
 luci-app-statistics
 luci-app-ttyd
 luci-app-upnp
+luci-app-webadmin
 luci-app-wol
 luci-app-zerotier
 luci-base
 luci-compat
+luci-i18n-advancedsetting-zh-cn
 luci-i18n-autoreboot-zh-cn
 luci-i18n-base-zh-cn
 luci-i18n-firewall-zh-cn
@@ -206,6 +219,7 @@ luci-i18n-opkg-zh-cn
 luci-i18n-statistics-zh-cn
 luci-i18n-ttyd-zh-cn
 luci-i18n-upnp-zh-cn
+luci-i18n-webadmin-zh-cn
 luci-i18n-wol-zh-cn
 luci-i18n-zerotier-zh-cn
 luci-lib-base
@@ -240,6 +254,8 @@ ppp-mod-pppoe
 procd
 procd-seccomp
 procd-ujail
+procps-ng
+reaver
 relayd
 rpcd
 rpcd-mod-file
@@ -248,7 +264,9 @@ rpcd-mod-luci
 rpcd-mod-rrdns
 rpcd-mod-ucode
 rrdtool1
+screen
 shellsync
+terminfo
 ttyd
 ubi-utils
 uboot-envtools
@@ -276,6 +294,7 @@ wget-ssl
 wifi-scripts
 wireguard-tools
 wireless-regdb
+wireless-tools
 wpad-openssl
 xtables-nft
 zerotier
