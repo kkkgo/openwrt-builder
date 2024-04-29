@@ -33,7 +33,7 @@ jobs:
             /usr/local/share/vcpkg/ports/azure* /usr/local/share/vcpkg/ports/google* /usr/local/share/vcpkg/ports/libpq/android* \
             /usr/local/share/vcpkg/ports/llvm* /usr/local/share/vcpkg/ports/mysql* /usr/local/share/vcpkg/ports/snap* \
             /usr/share/azure* /usr/share/dotnet* /usr/share/glade* /usr/share/miniconda* /usr/share/php* /usr/share/swift \
-            /var/lib/mysql* /var/log/azure*"
+            /var/lib/mysql* /opt/hostedtoolcache /var/log/azure*" 
           testing: false
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
