@@ -13,12 +13,10 @@ RUN ./scripts/feeds install -a
 ENV FORCE_UNSAFE_CONFIGURE=1
 COPY buildroot /src/
 COPY patch.sh /src/patch.sh
+COPY ax6.config /src/ax6.config
+COPY 6088.config /src/6088.config
 RUN bash patch.sh
-COPY ax6.config /src/.config
-RUN make download -j4
-RUN make -j4
-COPY 6088.config /src/.config
-RUN make download -j4
-RUN make -j4
-RUN make clean
+
+FROM soft AS immbuilder
+COPY --from=git /src /src
 CMD bash
