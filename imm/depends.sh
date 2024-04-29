@@ -1,5 +1,5 @@
 #!/bin/bash
-eport DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND=noninteractive
 apt-get -yqq update
 apt-get -yqq full-upgrade
 apt-get -yqq autoremove --purge

@@ -14,10 +14,10 @@ ENV FORCE_UNSAFE_CONFIGURE=1
 COPY buildroot /src/
 COPY patch.sh /src/patch.sh
 RUN bash patch.sh
-COPY ax6.config /src/.config
-RUN make download -j4
-RUN make -j4
-COPY 6088.config /src/.config
-RUN make download -j4
-RUN make -j4
+# COPY ax6.config /src/.config
+# RUN make download -j4
+# RUN make -j4
+# COPY 6088.config /src/.config
+# RUN make download -j4
+# RUN make -j4
 CMD bash
