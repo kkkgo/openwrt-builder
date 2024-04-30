@@ -55,10 +55,10 @@ RUN apk update && apk upgrade && apk add --no-cache \
 
 FROM newsoft
 WORKDIR /
-COPY --from=immbuilder /src/bin/targets/mediatek/mt7986/immortalwrt-imagebuilder-mediatek-filogic.Linux-x86_64.tar.zst .
+COPY --from=immbuilder /src/bin/targets/mediatek/filogic/immortalwrt-imagebuilder-mediatek-filogic.Linux-x86_64.tar.zst .
 RUN tar -xvf *.zst && rm *.tar.zst && mv *imagebuilder* src
 WORKDIR /src
-COPY --from=immbuilder /src/bin/targets/mediatek/mt7986/immortalwrt-mediatek-filogic-tplink_tl-xdr6088.manifest /src/
+COPY --from=immbuilder /src/bin/targets/mediatek/filogic/immortalwrt-mediatek-filogic-tplink_tl-xdr6088.manifest /src/
 COPY --from=immbuilder /src/files /src/files
 COPY ib.sh /src/ib.sh
 COPY ib.pkg /src/ib.pkg

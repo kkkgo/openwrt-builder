@@ -52,7 +52,7 @@ jobs:
           platforms: linux/amd64
           tags: sliamb/opbuilder:ax6
       - name: build
-        run: docker images -q "sliamb/opbuilder:imm" | xargs -r docker rmi && docker run --name ax6 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:ax6
+        run: docker system prune -f && docker images -q "sliamb/opbuilder:imm" | xargs -r docker rmi && docker run --name ax6 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:ax6
       - name: install 7zip
         run: sudo apt-get -qq -y install p7zip-full
       - name: pack
