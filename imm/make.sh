@@ -1,6 +1,4 @@
 #!/bin/bash
-git clone --depth=1 https://github.com/immortalwrt/immortalwrt.git /src
-cd /src || exit
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
@@ -33,3 +31,8 @@ make download -j4
 make -j4
 make clean
 rm -rf /src/.git
+if [ $(du -sm /src/dl | awk '{print $1}') -gt 1000 ]; then
+    echo "Size check passed." >/size_check_pass
+else
+    cp /size_check_error /root/ && exit 1
+fi
