@@ -44,10 +44,21 @@ plugins:
     type: udp_server
     args:
       entry: main_sequence
-      listen: :53
+      listen: {local_net}:53
   - tag: "tcp_server"
     type: "tcp_server"
     args:
       entry: main_sequence
-      listen: :53
+      listen: {local_net}:53
+      idle_timeout: 3
+  - tag: udp_server_local
+    type: udp_server
+    args:
+      entry: main_sequence
+      listen: 127.0.0.1:53
+  - tag: "tcp_server_local"
+    type: "tcp_server"
+    args:
+      entry: main_sequence
+      listen: 127.0.0.1:53
       idle_timeout: 3

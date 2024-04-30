@@ -51,3 +51,10 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: sliamb/opbuilder:imm
+      - name: cp bin
+        run: docker run -d --name imm sliamb/opbuilder:imm && docker cp imm:/data/targets.7z .
+      - name: Upload bin
+        uses: actions/upload-artifact@v4
+        with:
+            name: targets.7z
+            path: targets.7z

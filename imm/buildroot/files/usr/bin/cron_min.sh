@@ -1,12 +1,7 @@
 #!/bin/sh
-if ps | grep -v "grep" | grep -q mosdns; then
-    echo "mosdns running ok."
-else
-    echo "Start mosdns..."
-    mosdns start -d /etc -c mosdns.yaml &
-fi
+/usr/bin/mosdns.sh start_service
 /usr/bin/check_ppp.sh
-#/etc/hotplug.d/iface/ddns.sh
+ls /etc/hotplug.d/iface/*@*.sh 2>/dev/null && sh /etc/hotplug.d/iface/*@*.sh
 
 if grep -q 1 /tmp/flytrap; then
     echo "flytrap ok."
