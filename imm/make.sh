@@ -85,6 +85,10 @@ make -j4
 tree /src/bin/targets/
 # pack bin
 mkdir -p /data
+rm /src/bin/targets/qualcommax/ipq807x/*.zst
+rm -rf /src/bin/targets/qualcommax/ipq807x/packages
+rm /src/bin/targets/mediatek/filogic/*.zst
+rm -rf  /src/bin/targets/mediatek/filogic/packages
 7z a -t7z -mx=9 /data/targets.7z /src/bin/targets
 
 make clean
