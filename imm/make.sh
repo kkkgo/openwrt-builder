@@ -1,6 +1,6 @@
 #!/bin/bash
-cd /src || exit
 git clone --depth=1 https://github.com/immortalwrt/immortalwrt.git /src
+cd /src || exit
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
