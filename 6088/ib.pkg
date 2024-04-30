@@ -75,10 +75,10 @@ kmod-crypto-sha256
 kmod-crypto-sha512
 kmod-crypto-user
 kmod-cryptodev
-kmod-fs-exfat
-kmod-fs-ext4
-kmod-fs-ntfs3
-kmod-fs-vfat
+-kmod-fs-exfat
+-kmod-fs-ext4
+-kmod-fs-ntfs3
+-kmod-fs-vfat
 kmod-gpio-button-hotplug
 kmod-hwmon-core
 kmod-ip6tables
