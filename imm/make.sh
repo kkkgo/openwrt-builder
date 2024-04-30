@@ -29,6 +29,7 @@ make -j4
 cp /src/6088.config /src/.config
 make download -j4
 make -j4
+tree /src/bin/targets/
 make clean
 rm -rf /src/.git
 if [ $(du -sm /src/dl | awk '{print $1}') -gt 1000 ]; then
