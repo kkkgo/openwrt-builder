@@ -46,21 +46,21 @@ if [ -z "$DNSMASQ_DIR" ]; then
     rm -rf $EXTRACT_DIR
     exit 1
 fi
-DNSMASQ_C="$DNSMASQ_DIR/src/dnsmasq.c"
+DNSMASQ_SRC_DIR="$DNSMASQ_DIR/src"
+DNSMASQ_C="$DNSMASQ_SRC_DIR/dnsmasq.c"
 if [ -f "$DNSMASQ_C" ]; then
     sed -i '/static void set_dns_listeners(void)$/{
         N; 
         s/{/{ return;/
     }' $DNSMASQ_C
 else
-    echo "dnsmasq.c not found in $DNSMASQ_DIR."
+    echo "dnsmasq.c not found in $DNSMASQ_SRC_DIR."
     rm -rf $EXTRACT_DIR
     exit 1
 fi
-cd $DNSMASQ_DIR
-NEW_TAR_FILE="$DL_DIR/$(basename $TAR_FILE)"
-tar -cJf $NEW_TAR_FILE *
-NEW_HASH=$(sha256sum $NEW_TAR_FILE | awk '{print $1}')
+cd $EXTRACT_DIR
+tar -cJf $TAR_FILE $(basename $DNSMASQ_DIR)
+NEW_HASH=$(sha256sum $TAR_FILE | awk '{print $1}')
 MAKEFILE="$PACKAGE_DIR/Makefile"
 if [ -f "$MAKEFILE" ]; then
     sed -i "s/PKG_HASH:=.*/PKG_HASH:=$NEW_HASH/" $MAKEFILE

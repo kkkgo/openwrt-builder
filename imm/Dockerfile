@@ -17,4 +17,5 @@ RUN bash make.sh
 RUN cp /size_check_pass /root/
 FROM soft
 COPY --from=git /src /src
+WORKDIR /src
 CMD bash
