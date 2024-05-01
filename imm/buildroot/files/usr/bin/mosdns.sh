@@ -27,13 +27,13 @@ stop_dns() {
 if [ "$1" = "get_local" ]; then
     get_local
 fi
-if [ "$1" = "start_service" ]; then
+if [ "$1" = "start" ]; then
     start_dns
 fi
-if [ "$1" = "stop_service" ]; then
+if [ "$1" = "stop" ]; then
     stop_dns
 fi
-if [ "$1" = "reload_service" ]; then
+if [ "$1" = "restart" ] || [ "$1" = "reload" ]; then
     stop_dns
     start_dns
 fi

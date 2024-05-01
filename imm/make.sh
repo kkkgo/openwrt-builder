@@ -21,7 +21,7 @@ sed -i '/system.@system\[0\].zonename/a set system.@system[0].hostname="Router"'
 cp /src/ax6.config /src/.config
 make download -j4
 
-# patch dnsmasq code
+# patch rfc2131 code
 WORK_DIR="/src"
 DL_DIR="$WORK_DIR/dl"
 PACKAGE_DIR="$WORK_DIR/package/network/services/dnsmasq"
@@ -44,7 +44,7 @@ rfc2131="$DNSMASQ_SRC_DIR/rfc2131.c"
 if [ -f "$rfc2131" ]; then
     sed -i 's/daemon->port == NAMESERVER_PORT &&//g' $rfc2131
 else
-    echo "dnsmasq.c not found in $DNSMASQ_SRC_DIR."
+    echo "rfc2131.c not found in $DNSMASQ_SRC_DIR."
     rm -rf $EXTRACT_DIR
     exit 1
 fi
@@ -60,7 +60,7 @@ else
     exit 1
 fi
 rm -rf $EXTRACT_DIR
-echo "dnsmasq.c patch completed successfully."
+echo "rfc2131.c patch completed successfully."
 cd /src || exit
 
 # patch ipv6 dns
