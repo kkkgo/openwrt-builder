@@ -5,6 +5,9 @@ on:
   push:
     paths:
         - 'imm/**'
+        - 'ax6/**'
+        - '6088/**'
+
   workflow_dispatch:
 jobs:
   build:
@@ -43,9 +46,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        run: docker build -t sliamb/opbuilder:imm ./imm && docker push sliamb/opbuilder:imm
+        run: cp ./6088/.config imm/6088.config && cp ./ax6/.config imm/ax6.config && docker build -t sliamb/opbuilder:imm ./imm && docker push sliamb/opbuilder:imm
       - name: cp bin
-        run: docker run -d --name imm sliamb/opbuilder:imm && docker cp imm:/data/targets.7z .
+        run: df -h && docker run -d --name imm sliamb/opbuilder:imm && docker cp imm:/data/targets.7z .
       - name: Upload bin
         uses: actions/upload-artifact@v4
         with:

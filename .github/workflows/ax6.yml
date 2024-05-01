@@ -2,9 +2,9 @@ name: push make ax6 docker bin
 on:
   # schedule:
   #   - cron: '00 20 * * *'
-  push:
-    paths:
-        - 'ax6/**'
+  # push:
+  #   paths:
+  #       - 'ax6/**'
   workflow_dispatch:
 jobs:
   build:

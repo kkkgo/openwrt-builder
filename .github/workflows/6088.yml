@@ -2,9 +2,9 @@ name: push make 6088 docker bin
 on:
   # schedule:
   #   - cron: '00 20 * * *'
-  push:
-    paths:
-        - '6088/**'
+  # push:
+  #   paths:
+  #       - '6088/**'
   workflow_dispatch:
 jobs:
   build:
