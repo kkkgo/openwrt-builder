@@ -79,9 +79,9 @@ sed -i '/dhcp.lan.ra_flags/d' $odhcpd
 sed -i 's/set dhcp.lan.ra_slaac=1/set dhcp.lan.ra_slaac=0/' $odhcpd
 sed -i '/set dhcp.lan.ra_slaac=0/a set dhcp.lan.dns_service=0\nadd_list dhcp.lan.ra_flags=none' $odhcpd
 
-make -j4
+make -j5
 cp /src/6088.config /src/.config
-make -j4
+make -j5
 tree /src/bin/targets/
 # pack bin
 mkdir -p /data
