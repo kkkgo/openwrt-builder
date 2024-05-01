@@ -9,13 +9,6 @@ dnsmasqfile=/src/package/network/services/dnsmasq/files/dnsmasq.init
 sed -i 's/iptables /echo -n #/g' "$dnsmasqfile"
 sed -i 's/ip6tables /echo -n #/g' "$dnsmasqfile"
 sed -i 's/nft /echo -n #/g' "$dnsmasqfile"
-# use mosdns
-sed -i '/start_service()/a \
-/usr/bin/mosdns.sh start_service &' "$dnsmasqfile"
-sed -i '/reload_service()/a \
-/usr/bin/mosdns.sh reload_service &' "$dnsmasqfile"
-sed -i '/stop_service()/a \
-/usr/bin/mosdns.sh reload_service &' "$dnsmasqfile"
 # version
 current_date=$(date +%Y%m%d)
 new_description="03k.org build $current_date"
@@ -47,12 +40,9 @@ if [ -z "$DNSMASQ_DIR" ]; then
     exit 1
 fi
 DNSMASQ_SRC_DIR="$DNSMASQ_DIR/src"
-DNSMASQ_C="$DNSMASQ_SRC_DIR/dnsmasq.c"
-if [ -f "$DNSMASQ_C" ]; then
-    sed -i '/static void set_dns_listeners(void)$/{
-        N; 
-        s/{/{ return;/
-    }' $DNSMASQ_C
+rfc2131="$DNSMASQ_SRC_DIR/rfc2131.c"
+if [ -f "$rfc2131" ]; then
+    sed -i 's/daemon->port == NAMESERVER_PORT &&//g' $rfc2131
 else
     echo "dnsmasq.c not found in $DNSMASQ_SRC_DIR."
     rm -rf $EXTRACT_DIR
@@ -88,7 +78,7 @@ mkdir -p /data
 rm /src/bin/targets/qualcommax/ipq807x/*.zst
 rm -rf /src/bin/targets/qualcommax/ipq807x/packages
 rm /src/bin/targets/mediatek/filogic/*.zst
-rm -rf  /src/bin/targets/mediatek/filogic/packages
+rm -rf /src/bin/targets/mediatek/filogic/packages
 7z a -t7z -mx=9 /data/targets.7z /src/bin/targets
 
 make clean
