@@ -51,14 +51,14 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: sliamb/opbuilder:6088
-      - name: build
-        run: docker system prune -f && docker images -q "sliamb/opbuilder:imm" | xargs -r docker rmi && docker run --name 6088 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:6088
-      - name: install 7zip
-        run: sudo apt-get -qq -y install p7zip-full
-      - name: pack
-        run: ls -lah ./mediatek/filogic/* && 7z a -t7z -mx=9 ./6088.7z ./mediatek/filogic/
-      - name: Upload bin
-        uses: actions/upload-artifact@v4
-        with:
-            name: 6088.7z
-            path: 6088.7z
+      # - name: build
+      #   run: docker system prune -f && docker images -q "sliamb/opbuilder:imm" | xargs -r docker rmi && docker run --name 6088 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:6088
+      # - name: install 7zip
+      #   run: sudo apt-get -qq -y install p7zip-full
+      # - name: pack
+      #   run: ls -lah ./mediatek/filogic/* && 7z a -t7z -mx=9 ./6088.7z ./mediatek/filogic/
+      # - name: Upload bin
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #       name: 6088.7z
+      #       path: 6088.7z
