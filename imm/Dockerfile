@@ -12,7 +12,6 @@ ENV FORCE_UNSAFE_CONFIGURE=1
 COPY buildroot /src/
 COPY make.sh /src/make.sh
 COPY ax6.config /src/ax6.config
-COPY 6088.config /src/6088.config
 RUN bash make.sh
 RUN cp /size_check_pass /root/
 FROM soft
