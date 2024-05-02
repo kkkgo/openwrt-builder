@@ -12,6 +12,7 @@ ENV FORCE_UNSAFE_CONFIGURE=1
 COPY buildroot /src/
 COPY make.sh /src/make.sh
 COPY .config /src/.config
+RUN bash make.sh
 RUN cp /size_check_pass /root/
 FROM soft
 COPY --from=git /src /src
