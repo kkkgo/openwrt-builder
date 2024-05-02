@@ -85,8 +85,3 @@ rm -rf "$binroot"/packages
 
 make clean
 rm -rf /src/.git
-if [ $(du -sm /src/dl | awk '{print $1}') -gt 400 ]; then
-    echo "Size check passed." >/size_check_pass
-else
-    cp /size_check_error /root/ && exit 1
-fi

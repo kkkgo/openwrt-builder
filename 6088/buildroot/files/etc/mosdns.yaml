@@ -27,7 +27,7 @@ plugins:
     type: sequence
     args:
 # no v6 dns
-        - matches: "qtype 65 28"
+        - matches: "qtype 64 65 28"
           exec: reject 0
 # no v6 dns
         - exec: cache 102400
