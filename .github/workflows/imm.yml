@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        run: bash build.sh
+        run: bash imm/immbuild.sh
       - name: cp bin
         run: df -h && docker run -d --name imm sliamb/opbuilder:imm && docker cp imm:/data/targets.7z .
       - name: Upload bin
