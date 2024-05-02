@@ -8,13 +8,19 @@ MD5	4E809D5B7F8E0828DEC03CB8E405F68E
 ### 2、flash official tp-xdr6088 with debug 1.0.29 in tplink system
 `middle-xdr6088mtv1.bin	MD5	AF70B8D12448D9FB383708D82018D2BE`  
 
-### 3、flash initramfs-recovery.itb in tplink system
+### 3、flash openwrt official initramfs-recovery.itb in tplink system
 https://downloads.openwrt.org/releases/23.05.3/targets/mediatek/filogic/openwrt-23.05.3-mediatek-filogic-tplink_tl-xdr6088-initramfs-recovery.itb
 ```shell
 openwrt-23.05.3-mediatek-filogic-tplink_tl-xdr6088-initramfs-recovery.itb	
 MD5	D6957F8A2F11A67176DDE42B9FA90F4D
 ```
-### 4、flash your squashfs-sysupgrade.itb in recovery openwrt system.
+### 4、flash openwrt official squashfs-sysupgrade.itb in openwrt recovery
+https://downloads.openwrt.org/releases/23.05.3/targets/mediatek/filogic/openwrt-23.05.3-mediatek-filogic-tplink_tl-xdr6088-squashfs-sysupgrade.itb
+```shell
+openwrt-23.05.3-mediatek-filogic-tplink_tl-xdr6088-squashfs-sysupgrade.itb	
+MD5	FF0D44ACB2D3D7D33C8FD399FC77851B
+```
+### 5、flash your complied squashfs-sysupgrade.itb in official openwrt system.
 flash your `mediatek-filogic-tplink_tl-xdr6088-squashfs-sysupgrade.itb` 
 
 ## Other Unofficial openwrt to official tplink:

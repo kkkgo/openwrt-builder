@@ -8,13 +8,13 @@ RUN bash depends.sh
 FROM soft AS git
 RUN git clone --depth=1 https://github.com/padavanonly/immortalwrt-mt798x /src
 WORKDIR /src
-
-RUN ./scripts/feeds update -a
-RUN ./scripts/feeds install -a
-# RUN cp /src/defconfig/mt7986-ax6000-mtwifi-cfg.config /src/.config
-COPY .config /src/.config
-RUN make download -j4
-
 ENV FORCE_UNSAFE_CONFIGURE=1
-
+COPY buildroot /src/
+COPY make.sh /src/make.sh
+COPY .config /src/.config
+RUN cp /size_check_pass /root/
+FROM soft
+COPY --from=git /src /src
+COPY --from=git /data /data
+WORKDIR /src
 CMD bash

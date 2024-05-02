@@ -1,0 +1,64 @@
+log:
+    file: ""
+    level: error
+plugins:
+
+  - tag: try_local
+    type: forward
+    args:
+      qtime: 250
+      upstreams:
+# set your local dns here.
+#        - addr: "udp://10.10.10.7"
+        - addr: "udp://119.29.29.29"
+
+  - tag: try_cn
+    type: forward
+    args:
+      qtime: 2500
+      concurrent: 3
+      upstreams:
+# set your isp dns here.
+        - addr: "udp://202.96.128.86"
+        - addr: "udp://202.96.134.33"
+        - addr: "udp://223.5.5.5"
+
+  - tag: main_sequence
+    type: sequence
+    args:
+# no v6 dns
+        - matches: "qtype 65 28"
+          exec: reject 0
+# no v6 dns
+        - exec: cache 102400
+        - matches: rcode 0
+          exec: ok
+        - exec: $try_local
+        - matches: has_wanted_ans
+          exec: ok
+        - exec: $try_cn
+        - exec: ttl 1
+        - exec: ok
+
+  - tag: udp_server
+    type: udp_server
+    args:
+      entry: main_sequence
+      listen: {local_net}:53
+  - tag: "tcp_server"
+    type: "tcp_server"
+    args:
+      entry: main_sequence
+      listen: {local_net}:53
+      idle_timeout: 3
+  - tag: udp_server_local
+    type: udp_server
+    args:
+      entry: main_sequence
+      listen: 127.0.0.1:53
+  - tag: "tcp_server_local"
+    type: "tcp_server"
+    args:
+      entry: main_sequence
+      listen: 127.0.0.1:53
+      idle_timeout: 3
