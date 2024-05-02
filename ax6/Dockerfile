@@ -5,7 +5,7 @@ ENV FORCE_UNSAFE_CONFIGURE=1
 RUN make download -j4
 COPY build.sh /src/build.sh
 COPY buildroot /src/
-RUN bash build.sh
+RUN make -j5
 
 FROM alpine:edge AS newsoft
 RUN apk update && apk upgrade && apk add --no-cache \
