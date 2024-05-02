@@ -11,6 +11,7 @@ WORKDIR /src
 
 RUN ./scripts/feeds update -a
 RUN ./scripts/feeds install -a
+RUN cp /src/defconfig/mt7986-ax6000-mtwifi-cfg.config /src/.config
 RUN make download -j4
 
 ENV FORCE_UNSAFE_CONFIGURE=1
