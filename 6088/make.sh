@@ -3,6 +3,7 @@ cd /src || exit
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 cp /src/6088.config /src/.config
+md5sum /src/.config
 make download -j4
 
 chmod +x /src/files/usr/bin/*
