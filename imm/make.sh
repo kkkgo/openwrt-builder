@@ -4,7 +4,7 @@ cd /src || exit
 ./scripts/feeds install -a
 cp /src/ax6.config /src/.config
 md5sum /src/.config
-make download -j4
+make download
 
 chmod +x /src/files/usr/bin/*
 
@@ -72,7 +72,7 @@ sed -i 's/set dhcp.lan.ra_slaac=1/set dhcp.lan.ra_slaac=0/' $odhcpd
 sed -i '/set dhcp.lan.ra_slaac=0/a set dhcp.lan.dns_service=0\nadd_list dhcp.lan.ra_flags=none' $odhcpd
 
 
-make -j5
+make -j1 V=s
 tree /src/bin/targets/
 # pack bin
 mkdir -p /data
