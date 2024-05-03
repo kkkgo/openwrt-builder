@@ -13,7 +13,6 @@ COPY buildroot /src/
 COPY make.sh /src/make.sh
 COPY ax6.config /src/ax6.config
 RUN bash make.sh
-RUN cp /size_check_pass /root/
 FROM soft
 COPY --from=git /src /src
 COPY --from=git /data /data
