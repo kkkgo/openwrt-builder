@@ -1,13 +1,15 @@
 #!/bin/bash
+cd /src || exit
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+cp /src/6088.config /src/.config
+make download -j4
 
 chmod +x /src/files/usr/bin/*
 
 # patch local net address.
 config_generate="/src/package/base-files/files/bin/config_generate"
 sed -i 's/192\.168\.[0-9]\+\.1/192.168.1.1/g' "$config_generate"
-
 
 # remove hijack udp 53
 dnsmasqfile=/src/package/network/services/dnsmasq/files/dnsmasq.init
@@ -22,8 +24,6 @@ sed -i "s/^DISTRIB_DESCRIPTION=.*$/DISTRIB_DESCRIPTION='$new_description'/" /src
 # luci settings
 luciset=/src/package/emortal/default-settings/files/99-default-settings-chinese
 sed -i '/system.@system\[0\].zonename/a set system.@system[0].hostname="Router"' "$luciset"
-
-make download -j4
 
 # patch rfc2131 code
 WORK_DIR="/src"

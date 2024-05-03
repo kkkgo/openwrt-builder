@@ -8,10 +8,10 @@ RUN bash depends.sh
 FROM soft AS git
 RUN git clone --depth=1 https://github.com/padavanonly/immortalwrt-mt798x /src
 WORKDIR /src
-ENV FORCE_UNSAFE_CONFIGURE=1
+COPY .config /src/6088.config
 COPY buildroot /src/
 COPY make.sh /src/make.sh
-COPY .config /src/.config
+ENV FORCE_UNSAFE_CONFIGURE=1
 RUN bash make.sh
 FROM soft
 COPY --from=git /src /src

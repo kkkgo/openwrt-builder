@@ -1,6 +1,9 @@
 #!/bin/bash
+cd /src || exit
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+cp /src/ax6.config /src/.config
+make download -j4
 
 chmod +x /src/files/usr/bin/*
 
@@ -18,8 +21,6 @@ sed -i "s/^DISTRIB_DESCRIPTION=.*$/DISTRIB_DESCRIPTION='$new_description'/" /src
 luciset=/src/package/emortal/default-settings/files/99-default-settings-chinese
 sed -i '/system.@system\[0\].zonename/a set system.@system[0].hostname="Router"' "$luciset"
 
-cp /src/ax6.config /src/.config
-make download -j4
 
 # patch rfc2131 code
 WORK_DIR="/src"

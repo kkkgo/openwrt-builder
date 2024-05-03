@@ -8,10 +8,10 @@ RUN bash depends.sh
 FROM soft AS git
 RUN git clone --depth=1 https://github.com/immortalwrt/immortalwrt.git /src
 WORKDIR /src
-ENV FORCE_UNSAFE_CONFIGURE=1
 COPY buildroot /src/
-COPY make.sh /src/make.sh
 COPY ax6.config /src/ax6.config
+ENV FORCE_UNSAFE_CONFIGURE=1
+COPY make.sh /src/make.sh
 RUN bash make.sh
 FROM soft
 COPY --from=git /src /src
