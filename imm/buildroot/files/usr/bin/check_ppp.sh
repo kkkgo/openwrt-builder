@@ -34,9 +34,13 @@ fi
 echo flag5:$flag5
 
 all=$flag1$flag2$flag3$flag4$flag5
-if echo $all | grep nnnnn; then
+if echo $all | grep -q nnnnn; then
     echo "wan err,restart pppoe"
     ifup wan
 else
     echo pppoeok.:$all
+fi
+if echo $all | grep -Eq "^nnn.+"; then
+    echo "dns err,restart dns"
+    /usr/bin/mosdns.sh reload
 fi

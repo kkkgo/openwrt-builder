@@ -18,7 +18,7 @@ sed -i 's/iptables /echo -n #/g' "$dnsmasqfile"
 sed -i 's/ip6tables /echo -n #/g' "$dnsmasqfile"
 sed -i 's/nft /echo -n #/g' "$dnsmasqfile"
 # version
-current_date=$(date +%Y%m%d)
+current_date=$(date -u -d @"$(($(date -u +%s) + 8*3600))" "+%Y-%m-%d %H:%M:%S")
 new_description="03k.org build $current_date"
 sed -i "s/^DISTRIB_DESCRIPTION=.*$/DISTRIB_DESCRIPTION='$new_description'/" /src/package/base-files/files/etc/openwrt_release
 
