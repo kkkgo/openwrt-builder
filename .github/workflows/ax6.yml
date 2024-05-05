@@ -2,9 +2,9 @@ name: push make ax6 docker bin
 on:
   # schedule:
   #   - cron: '00 20 * * *'
-  # push:
-  #   paths:
-  #       - 'ax6/**'
+  push:
+    paths:
+        - 'ax6/**'
   workflow_dispatch:
 jobs:
   build:
@@ -33,32 +33,21 @@ jobs:
             /usr/local/share/vcpkg/ports/azure* /usr/local/share/vcpkg/ports/google* /usr/local/share/vcpkg/ports/libpq/android* \
             /usr/local/share/vcpkg/ports/llvm* /usr/local/share/vcpkg/ports/mysql* /usr/local/share/vcpkg/ports/snap* \
             /usr/share/azure* /usr/share/dotnet* /usr/share/glade* /usr/share/miniconda* /usr/share/php* /usr/share/swift \
-            /var/lib/mysql* /opt/hostedtoolcache /var/log/azure*" 
+            /var/lib/mysql* /opt/hostedtoolcache/* /var/log/azure*"
           testing: false
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: "{{defaultContext}}:ax6"
-          push: true
-          platforms: linux/amd64
-          tags: sliamb/opbuilder:ax6
-      - name: build
-        run: docker system prune -f && docker images -q "sliamb/opbuilder:imm" | xargs -r docker rmi && docker run --name ax6 -v$(pwd):/src/bin/targets/ sliamb/opbuilder:ax6
-      - name: install 7zip
-        run: sudo apt-get -qq -y install p7zip-full
-      - name: pack
-        run: ls -lah ./qualcommax/ipq807x/* && 7z a -t7z -mx=9 ./ax6.7z ./qualcommax/ipq807x/
-      - name: Upload bin
-        uses: actions/upload-artifact@v4
-        with:
-            name: ax6.7z
-            path: ax6.7z
+        run: bash ax6/ax6build.sh
+      # - name: cp bin
+      #   run: df -h && docker run -d --name ax6 sliamb/opbuilder:ax6 && docker cp ax6:/data/ax6.7z .
+      # - name: Upload bin
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #       name: ax6.7z
+      #       path: ax6.7z

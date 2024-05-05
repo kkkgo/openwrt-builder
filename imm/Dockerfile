@@ -17,4 +17,5 @@ FROM soft
 COPY --from=git /src /src
 COPY --from=git /data /data
 WORKDIR /src
+ENV FORCE_UNSAFE_CONFIGURE=1
 CMD bash

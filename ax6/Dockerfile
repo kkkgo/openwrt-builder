@@ -1,66 +1,21 @@
-FROM sliamb/opbuilder:imm AS immbuilder
+FROM ubuntu:22.04 AS soft
+RUN sed -i 's/archive\.ubuntu\.com/azure.archive.ubuntu.com/g' /etc/apt/sources.list && \
+    sed -i 's/security\.ubuntu\.com/azure.archive.ubuntu.com/g' /etc/apt/sources.list
+RUN ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
+COPY depends.sh .
+RUN bash depends.sh
+  
+FROM soft AS git
+RUN git clone --depth=1 https://github.com/qosmio/openwrt-ipq.git /src
 WORKDIR /src
-COPY .config .config
+COPY ax6.config /src/ax6.config
+# COPY buildroot /src/
+COPY make.sh /src/make.sh
 ENV FORCE_UNSAFE_CONFIGURE=1
-RUN make download -j4
-COPY build.sh /src/build.sh
-COPY buildroot /src/
-RUN make -j5
-
-FROM alpine:edge AS newsoft
-RUN apk update && apk upgrade && apk add --no-cache \
-    'argp-standalone' \
-    'asciidoc' \
-    'bash' \
-    'bc' \
-    'binutils' \
-    'bzip2' \
-    'cdrkit' \
-    'coreutils' \
-    'diffutils' \
-    'elfutils-dev' \
-    'findutils' \
-    'flex' \
-    'g++' \
-    'gawk' \
-    'gcc' \
-    'gettext' \
-    'git' \
-    'grep' \
-    'gzip' \
-    'intltool' \
-    'libxslt' \
-    'linux-headers' \
-    'make' \
-    'musl-fts-dev' \
-    'musl-libintl' \
-    'musl-obstack-dev' \
-    'ncurses-dev' \
-    'openssl-dev' \
-    'patch' \
-    'perl' \
-    'python3-dev' \
-    'rsync' \
-    'tar' \
-    'unzip' \
-    'util-linux' \
-    'wget' \
-    'zlib-dev' \
-    'curl' \
-    'swig' \
-    'p7zip ' \
-    'py3-setuptools' \
-  && \
-  ln -s '/usr/lib/libncurses.so' '/usr/lib/libtinfo.so'
-
-FROM newsoft
-WORKDIR /
-COPY --from=immbuilder /src/bin/targets/qualcommax/ipq807x/immortalwrt-imagebuilder-qualcommax-ipq807x.Linux-x86_64.tar.zst .
-RUN tar -xvf *.zst && rm *.tar.zst && mv *imagebuilder* src
+RUN bash make.sh
+FROM soft
+COPY --from=git /src /src
+# COPY --from=git /data /data
 WORKDIR /src
-COPY --from=immbuilder /src/bin/targets/qualcommax/ipq807x/immortalwrt-qualcommax-ipq807x-redmi_ax6-stock.manifest /src/
-COPY --from=immbuilder /src/files /src/files
-COPY ib.sh /src/ib.sh
-COPY ib.pkg /src/ib.pkg
-COPY buildroot /src/
-CMD sh ib.sh
+ENV FORCE_UNSAFE_CONFIGURE=1
+CMD bash
