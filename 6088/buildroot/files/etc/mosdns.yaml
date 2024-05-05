@@ -7,6 +7,7 @@ plugins:
     type: forward
     args:
       qtime: 250
+      concurrent: 3
       upstreams:
 # set your local dns here.
 #        - addr: "udp://10.10.10.7"
