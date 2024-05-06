@@ -6,7 +6,7 @@ COPY depends.sh .
 RUN bash depends.sh
   
 FROM soft AS git
-RUN git clone --depth=1 https://github.com/qosmio/openwrt-ipq.git -b 5.15-qsdk11 /src
+RUN git clone --depth=1 https://github.com/qosmio/openwrt-ipq.git -b qualcommax-ssdk-12.5.r2 /src
 WORKDIR /src
 COPY ax6.config /src/ax6.config
 # COPY buildroot /src/
