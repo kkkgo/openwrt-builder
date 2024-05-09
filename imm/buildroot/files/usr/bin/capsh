@@ -1,0 +1,48 @@
+#!/bin/sh
+
+INTERFACE="phy1-ap0"
+MONITOR_INTERFACE="${INTERFACE}mon"
+
+if iwconfig 2>&1 | grep -q "$MONITOR_INTERFACE"; then
+    echo "$MONITOR_INTERFACE OK"
+else
+    echo "Try to create $MONITOR_INTERFACE"
+    while true; do
+        airmon-ng start $INTERFACE
+        sleep 2
+        if iwconfig 2>&1 | grep -q "$MONITOR_INTERFACE"; then
+            echo "$MONITOR_INTERFACE OK"
+            break
+        fi
+    done
+fi
+
+INTERFACE="phy1-ap0mon"
+CHANNEL=$1
+if [ -z "$1" ]; then
+    echo "Usage: capsh channel"
+    exit
+fi
+TEMP_DIR="/tmp/pcap"
+FINAL_DIR="/root"
+mkdir -p $TEMP_DIR
+
+CAP_PREFIX="capture"
+
+while true; do
+    rm -f $TEMP_DIR/*.cap
+    airodump-ng -c $CHANNEL -w $TEMP_DIR/$CAP_PREFIX --output-format pcap $INTERFACE &
+    AIRODUMP_PID=$!
+    sleep 600
+    kill $AIRODUMP_PID
+    wait $AIRODUMP_PID 2>/dev/null
+    hcxpcapngtool -o $TEMP_DIR/output.22000 -E $TEMP_DIR/essidlist.txt -I $TEMP_DIR/identitylist.txt -U $TEMP_DIR/usernamelist.txt $TEMP_DIR/$CAP_PREFIX-01.cap >/dev/null 2>&1
+    if [ -s $TEMP_DIR/output.22000 ]; then
+        mv $TEMP_DIR/$CAP_PREFIX-01.cap $FINAL_DIR/$(date +%F-%H-%M-%S)-handshake.cap
+        echo "Handshake captured and saved to $FINAL_DIR."
+    else
+        rm $TEMP_DIR/$CAP_PREFIX-01.cap
+        echo "No handshake found. Temporary file deleted."
+    fi
+    rm -f $TEMP_DIR/output.22000 $TEMP_DIR/*.txt
+done
