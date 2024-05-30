@@ -10,6 +10,7 @@ on:
       - '6088/**'
       - 'ax6/**'
       - 'imm/**'
+      - 'RAX3000MNAND/**'
   workflow_dispatch:
 jobs:
   build:
