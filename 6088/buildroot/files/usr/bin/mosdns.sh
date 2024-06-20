@@ -1,13 +1,19 @@
 #!/bin/sh
 IPREX4='([0-9]{1,2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.([0-9]{1,2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.([0-9]{1,2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.([0-9]{1,2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])'
 get_local() {
-    uci show network.lan.ipaddr | grep -Eo "$IPREX4" | head -1
+    uci get network.lan.ipaddr | grep -Eo "$IPREX4" | head -1
+}
+get_run() {
+    ps | grep -v "grep" | grep /tmp/mosdns | grep -Eo "$IPREX4" | head -1
 }
 start_dns() {
-    if ps | grep -v "grep" | grep -q /tmp/mosdns; then
+    now_addr=$(get_run)
+    real_addr=$(get_local)
+    if [ "$now_addr" = "$real_addr" ]; then
         echo "mosdns running ok."
     else
         echo "try to run mosdns..."
+        stop_dns
         rm /tmp/mosdns*.yaml
         sed "s/{local_net}/$(get_local)/g" /etc/mosdns.yaml >/tmp/mosdns"$(get_local)".yaml
         mosdns start -d /tmp -c /tmp/mosdns"$(get_local)".yaml &
