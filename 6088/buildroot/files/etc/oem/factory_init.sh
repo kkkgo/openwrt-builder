@@ -6,7 +6,7 @@ maceth0=$(cat /sys/class/net/eth0/address | tr -d ':')
 if [ -z "$BAND_NAME" ]; then
     BAND_NAME="03k.org"
 fi
-sed -i "s/BAND_NAME/'$BAND_NAME'/" /etc/openwrt_release
+sed -i "s/BAND_NAME/$BAND_NAME/" /etc/openwrt_release
 
 # hostname
 if [ -z "$BAND_NAME" ]; then
@@ -19,13 +19,13 @@ else
     fi
     # login hit
     login_js=/www/luci-static/resources/view/bootstrap/sysauth.js
-    sed -i "s/Authorization Required/'$HOST_NAME'/g" $login_js
+    sed -i "s/Authorization Required/$HOST_NAME/g" $login_js
 fi
 uci set system.@system[0].hostname="$HOST_NAME"
 uci commit system
 
 # root pass patch
-if [ -z "$BAND_ROOT_PASS" ]; then
+if [ -n "$BAND_ROOT_PASS" ]; then
     if [ "$BAND_ROOT_PASS" = "CALC" ]; then
         BAND_ROOT_PASS=CALCCALC
     fi
@@ -34,8 +34,8 @@ if [ -z "$BAND_ROOT_PASS" ]; then
 fi
 
 # cidr patch
-if [ -z "$BAND_CIDR" ]; then
-    uci set network.lan.ipaddr='$BAND_CIDR'
+if [ -n "$BAND_CIDR" ]; then
+    uci set network.lan.ipaddr=$BAND_CIDR
     uci commit network
 fi
 
@@ -64,7 +64,7 @@ if [ "$CHIP" = "7981" ]; then
     uci set wireless.default_MT7981_1_1.device='MT7981_1_1'
     uci set wireless.default_MT7981_1_1.network='lan'
     uci set wireless.default_MT7981_1_1.mode='ap'
-    uci set wireless.default_MT7981_1_1.ssid='$BAND_SSID''_2.4G'
+    uci set wireless.default_MT7981_1_1.ssid="$BAND_SSID"_2.4G
     uci set wireless.MT7981_1_2=wifi-device
     uci set wireless.MT7981_1_2.type='mtwifi'
     uci set wireless.MT7981_1_2.phy='rax0'
@@ -77,19 +77,18 @@ if [ "$CHIP" = "7981" ]; then
     uci set wireless.MT7981_1_2.noscan='0'
     uci set wireless.MT7981_1_2.serialize='1'
     uci set wireless.MT7981_1_2.htmode='HE80'
-    uci set wireless.MT7981_1_2.disabled='1'
     uci set wireless.default_MT7981_1_2=wifi-iface
     uci set wireless.default_MT7981_1_2.device='MT7981_1_2'
     uci set wireless.default_MT7981_1_2.network='lan'
     uci set wireless.default_MT7981_1_2.mode='ap'
-    uci set wireless.default_MT7981_1_2.ssid='$BAND_SSID''_5G'
-    if [ -z "$BAND_WLAN_PASS" ]; then
+    uci set wireless.default_MT7981_1_2.ssid="$BAND_SSID"_5G
+    if [ -n "$BAND_WLAN_PASS" ]; then
         uci set wireless.MT7981_1_2.channel='52'
         uci set wireless.MT7981_1_1.channel='11'
         uci set wireless.default_MT7981_1_2.encryption='sae-mixed'
         uci set wireless.default_MT7981_1_1.encryption='psk-mixed'
-        uci set wireless.default_MT7981_1_2.key='$BAND_WLAN_PASS'
-        uci set wireless.default_MT7981_1_1.key='$BAND_WLAN_PASS'
+        uci set wireless.default_MT7981_1_2.key="$BAND_WLAN_PASS"
+        uci set wireless.default_MT7981_1_1.key="$BAND_WLAN_PASS"
     fi
 fi
 # 7986
@@ -113,7 +112,7 @@ if [ "$CHIP" = "7986" ]; then
     uci set wireless.default_MT7986_1_1.device='MT7986_1_1'
     uci set wireless.default_MT7986_1_1.network='lan'
     uci set wireless.default_MT7986_1_1.mode='ap'
-    uci set wireless.default_MT7986_1_1.ssid='$BAND_SSID''_2.4G'
+    uci set wireless.default_MT7986_1_1.ssid="$BAND_SSID"_2.4G
     uci set wireless.MT7986_1_2=wifi-device
     uci set wireless.MT7986_1_2.type='mtwifi'
     uci set wireless.MT7986_1_2.phy='rax0'
@@ -130,14 +129,14 @@ if [ "$CHIP" = "7986" ]; then
     uci set wireless.default_MT7986_1_2.device='MT7986_1_2'
     uci set wireless.default_MT7986_1_2.network='lan'
     uci set wireless.default_MT7986_1_2.mode='ap'
-    uci set wireless.default_MT7986_1_2.ssid='$BAND_SSID''_5G'
-    if [ -z "$BAND_WLAN_PASS" ]; then
+    uci set wireless.default_MT7986_1_2.ssid="$BAND_SSID"_5G
+    if [ -n "$BAND_WLAN_PASS" ]; then
         uci set wireless.MT7986_1_2.channel='52'
         uci set wireless.MT7986_1_1.channel='11'
         uci set wireless.default_MT7986_1_2.encryption='sae-mixed'
         uci set wireless.default_MT7986_1_1.encryption='psk-mixed'
-        uci set wireless.default_MT7986_1_1.key=='$BAND_WLAN_PASS'
-        uci set wireless.default_MT7986_1_2.key='$BAND_WLAN_PASS'
+        uci set wireless.default_MT7986_1_1.key="$BAND_WLAN_PASS"
+        uci set wireless.default_MT7986_1_2.key="$BAND_WLAN_PASS"
     fi
 fi
 

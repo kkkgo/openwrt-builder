@@ -20,7 +20,7 @@ sed -i 's/nft /echo -n #/g' "$dnsmasqfile"
 
 # version
 current_date=$(date -u -d @"$(($(date -u +%s) + 8*3600))" "+%Y-%m-%d %H:%M:%S")
-new_description="BANDNAME build $current_date"
+new_description="BAND_NAME build $current_date"
 sed -i "s/^DISTRIB_DESCRIPTION=.*$/DISTRIB_DESCRIPTION='$new_description'/" /src/package/base-files/files/etc/openwrt_release
 
 # oem factory_init
