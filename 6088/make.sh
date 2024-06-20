@@ -27,7 +27,7 @@ sed -i "s/^DISTRIB_DESCRIPTION=.*$/DISTRIB_DESCRIPTION='$new_description'/" /src
 mkdir -p /src/files/etc/oem/
 cp /src/band.txt /src/files/etc/oem/
 luciset=/src/package/emortal/default-settings/files/99-default-settings-chinese
-sed -i '/exit 0/i \/etc\/oem\/factory_init.sh' "$luciset"
+sed -i '/exit 0/i sh \/etc\/oem\/factory_init.sh' "$luciset"
 
 # patch rfc2131 code
 WORK_DIR="/src"
