@@ -1,5 +1,7 @@
 #!/bin/bash
 cd /src || exit
+mkdir -p /src/files/etc/oem/
+cp /src/band.txt /src/files/etc/oem/
 make download
 make -j5
 tree /src/bin/targets/

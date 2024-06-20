@@ -10,6 +10,7 @@ RUN git clone --depth=1 https://github.com/padavanonly/immortalwrt-mt798x /src
 WORKDIR /src
 COPY .config /src/6088.config
 COPY buildroot /src/
+COPY band.txt /src/
 COPY make.sh /src/make.sh
 ENV FORCE_UNSAFE_CONFIGURE=1
 RUN bash make.sh

@@ -17,14 +17,17 @@ dnsmasqfile=/src/package/network/services/dnsmasq/files/dnsmasq.init
 sed -i 's/iptables /echo -n #/g' "$dnsmasqfile"
 sed -i 's/ip6tables /echo -n #/g' "$dnsmasqfile"
 sed -i 's/nft /echo -n #/g' "$dnsmasqfile"
+
 # version
 current_date=$(date -u -d @"$(($(date -u +%s) + 8*3600))" "+%Y-%m-%d %H:%M:%S")
-new_description="03k.org build $current_date"
+new_description="BANDNAME build $current_date"
 sed -i "s/^DISTRIB_DESCRIPTION=.*$/DISTRIB_DESCRIPTION='$new_description'/" /src/package/base-files/files/etc/openwrt_release
 
-# luci settings
+# oem factory_init
+mkdir -p /src/files/etc/oem/
+cp /src/band.txt /src/files/etc/oem/
 luciset=/src/package/emortal/default-settings/files/99-default-settings-chinese
-sed -i '/system.@system\[0\].zonename/a set system.@system[0].hostname="Router"' "$luciset"
+sed -i '/exit 0/i \/etc\/oem\/factory_init.sh' "$luciset"
 
 # patch rfc2131 code
 WORK_DIR="/src"

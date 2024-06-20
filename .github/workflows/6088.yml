@@ -6,6 +6,31 @@ on:
     paths:
         - '6088/**'
   workflow_dispatch:
+    inputs:
+      BAND_NAME:
+        description: 'The name of the band'
+        required: false
+        default: ''
+      BAND_NAME_ADDMAC:
+        description: 'if MAC for the band'
+        required: false
+        default: ''
+      BAND_SSID:
+        description: 'SSID of the band'
+        required: false
+        default: ''
+      BAND_ROOT_PASS:
+        description: 'Password for the root (CALC)'
+        required: false
+        default: ''
+      BAND_WLAN_PASS:
+        description: 'Password for the wifi (CALC)'
+        required: false
+        default: ''
+      BAND_CIDR:
+        description: 'CIDR for the band'
+        required: false
+        default: ''
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,13 +62,22 @@ jobs:
           testing: false
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Write variables to band.txt (7986)
+        run: |
+          echo "BAND_NAME=${{ github.event.inputs.BAND_NAME }}" > band.txt
+          echo "BAND_NAME_ADDMAC=${{ github.event.inputs.BAND_NAME_ADDMAC }}" >> band.txt
+          echo "BAND_SSID=${{ github.event.inputs.BAND_SSID }}" >> band.txt
+          echo "BAND_ROOT_PASS=${{ github.event.inputs.BAND_ROOT_PASS }}" >> band.txt
+          echo "BAND_WLAN_PASS=${{ github.event.inputs.BAND_WLAN_PASS }}" >> band.txt
+          echo "BAND_CIDR=${{ github.event.inputs.BAND_CIDR }}" >> band.txt
+          echo "CHIP=7986" >> band.txt
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        run: bash 6088/6088build.sh
+        run: cp band.txt 6088/ && bash 6088/6088build.sh
       - name: cp bin
         run: df -h && docker run -d --name 6088 sliamb/opbuilder:6088 && docker cp 6088:/data/6088.7z .
       - name: Upload bin

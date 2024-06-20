@@ -6,6 +6,31 @@ on:
     paths:
         - 'RAX3000MNAND/**'
   workflow_dispatch:
+    inputs:
+      BAND_NAME:
+        description: 'The name of the band'
+        required: false
+        default: ''
+      BAND_NAME_ADDMAC:
+        description: 'if MAC for the band'
+        required: false
+        default: ''
+      BAND_SSID:
+        description: 'SSID of the band'
+        required: false
+        default: ''
+      BAND_ROOT_PASS:
+        description: 'Password for the root (CALC)'
+        required: false
+        default: ''
+      BAND_WLAN_PASS:
+        description: 'Password for the wifi (CALC)'
+        required: false
+        default: ''
+      BAND_CIDR:
+        description: 'CIDR for the band'
+        required: false
+        default: ''
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,8 +62,17 @@ jobs:
           testing: false
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Write variables to band.txt (7981)
+        run: |
+          echo "BAND_NAME=${{ github.event.inputs.BAND_NAME }}" > band.txt
+          echo "BAND_NAME_ADDMAC=${{ github.event.inputs.BAND_NAME_ADDMAC }}" >> band.txt
+          echo "BAND_SSID=${{ github.event.inputs.BAND_SSID }}" >> band.txt
+          echo "BAND_ROOT_PASS=${{ github.event.inputs.BAND_ROOT_PASS }}" >> band.txt
+          echo "BAND_WLAN_PASS=${{ github.event.inputs.BAND_WLAN_PASS }}" >> band.txt
+          echo "BAND_CIDR=${{ github.event.inputs.BAND_CIDR }}" >> band.txt
+          echo "CHIP=7981" >> band.txt
       - name: Build only
-        run: bash RAX3000MNAND/RAX3000MNANDbuild.sh
+        run: cp band.txt RAX3000MNAND/ && bash RAX3000MNAND/RAX3000MNANDbuild.sh
       - name: cp bin
         run: df -h && docker run -d --name RAX3000MNAND sliamb/opbuilder:RAX3000MNAND && docker cp RAX3000MNAND:/data/RAX3000MNAND.7z .
       - name: Upload bin
