@@ -42,39 +42,9 @@ if [ "$CHIP" = "7981" ]; then
     if [ -z "$BAND_SSID" ]; then
         BAND_SSID="MT7981"
     fi
-    uci set wireless.MT7981_1_1=wifi-device
-    uci set wireless.MT7981_1_1.type='mtwifi'
-    uci set wireless.MT7981_1_1.phy='ra0'
-    uci set wireless.MT7981_1_1.hwmode='11g'
-    uci set wireless.MT7981_1_1.band='2g'
-    uci set wireless.MT7981_1_1.dbdc_main='1'
-    uci set wireless.MT7981_1_1.txpower='100'
-    uci set wireless.MT7981_1_1.country='CN'
-    uci set wireless.MT7981_1_1.mu_beamformer='1'
-    uci set wireless.MT7981_1_1.noscan='1'
-    uci set wireless.MT7981_1_1.serialize='1'
     uci set wireless.MT7981_1_1.htmode='HT20'
-    uci set wireless.default_MT7981_1_1=wifi-iface
-    uci set wireless.default_MT7981_1_1.device='MT7981_1_1'
-    uci set wireless.default_MT7981_1_1.network='lan'
-    uci set wireless.default_MT7981_1_1.mode='ap'
-    uci set wireless.default_MT7981_1_1.ssid="$BAND_SSID"_2.4G
-    uci set wireless.MT7981_1_2=wifi-device
-    uci set wireless.MT7981_1_2.type='mtwifi'
-    uci set wireless.MT7981_1_2.phy='rax0'
-    uci set wireless.MT7981_1_2.hwmode='11a'
-    uci set wireless.MT7981_1_2.band='5g'
-    uci set wireless.MT7981_1_2.dbdc_main='0'
-    uci set wireless.MT7981_1_2.txpower='100'
-    uci set wireless.MT7981_1_2.country='CN'
-    uci set wireless.MT7981_1_2.mu_beamformer='1'
-    uci set wireless.MT7981_1_2.noscan='0'
-    uci set wireless.MT7981_1_2.serialize='1'
     uci set wireless.MT7981_1_2.htmode='HE80'
-    uci set wireless.default_MT7981_1_2=wifi-iface
-    uci set wireless.default_MT7981_1_2.device='MT7981_1_2'
-    uci set wireless.default_MT7981_1_2.network='lan'
-    uci set wireless.default_MT7981_1_2.mode='ap'
+    uci set wireless.default_MT7981_1_1.ssid="$BAND_SSID"_2.4G
     uci set wireless.default_MT7981_1_2.ssid="$BAND_SSID"_5G
     if [ -n "$BAND_WLAN_PASS" ]; then
         if [ -z "$PASS_PUBKEY" ]; then
@@ -92,39 +62,9 @@ if [ "$CHIP" = "7986" ]; then
     if [ -z "$BAND_SSID" ]; then
         BAND_SSID="MT7986"
     fi
-    uci set wireless.MT7986_1_1=wifi-device
-    uci set wireless.MT7986_1_1.type='mtwifi'
-    uci set wireless.MT7986_1_1.phy='ra0'
-    uci set wireless.MT7986_1_1.hwmode='11g'
-    uci set wireless.MT7986_1_1.band='2g'
-    uci set wireless.MT7986_1_1.dbdc_main='1'
-    uci set wireless.MT7986_1_1.txpower='100'
-    uci set wireless.MT7986_1_1.mu_beamformer='1'
-    uci set wireless.MT7986_1_1.noscan='1'
-    uci set wireless.MT7986_1_1.serialize='1'
     uci set wireless.MT7986_1_1.htmode='HT20'
-    uci set wireless.MT7986_1_1.country='AU'
-    uci set wireless.default_MT7986_1_1=wifi-iface
-    uci set wireless.default_MT7986_1_1.device='MT7986_1_1'
-    uci set wireless.default_MT7986_1_1.network='lan'
-    uci set wireless.default_MT7986_1_1.mode='ap'
-    uci set wireless.default_MT7986_1_1.ssid="$BAND_SSID"_2.4G
-    uci set wireless.MT7986_1_2=wifi-device
-    uci set wireless.MT7986_1_2.type='mtwifi'
-    uci set wireless.MT7986_1_2.phy='rax0'
-    uci set wireless.MT7986_1_2.hwmode='11a'
-    uci set wireless.MT7986_1_2.band='5g'
-    uci set wireless.MT7986_1_2.dbdc_main='0'
-    uci set wireless.MT7986_1_2.txpower='100'
-    uci set wireless.MT7986_1_2.country='CN'
-    uci set wireless.MT7986_1_2.mu_beamformer='1'
-    uci set wireless.MT7986_1_2.noscan='0'
-    uci set wireless.MT7986_1_2.serialize='1'
     uci set wireless.MT7986_1_2.htmode='HE80'
-    uci set wireless.default_MT7986_1_2=wifi-iface
-    uci set wireless.default_MT7986_1_2.device='MT7986_1_2'
-    uci set wireless.default_MT7986_1_2.network='lan'
-    uci set wireless.default_MT7986_1_2.mode='ap'
+    uci set wireless.default_MT7986_1_1.ssid="$BAND_SSID"_2.4G
     uci set wireless.default_MT7986_1_2.ssid="$BAND_SSID"_5G
     if [ -n "$BAND_WLAN_PASS" ]; then
         if [ -z "$PASS_PUBKEY" ]; then
