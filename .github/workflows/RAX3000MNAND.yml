@@ -68,15 +68,27 @@ jobs:
         uses: actions/checkout@v4
       - name: Write variables to band.txt (7981)
         run: |
-          echo "BAND_NAME=${{ github.event.inputs.BAND_NAME }}" > band.txt
+          BAND_NAME=$(jq -r '.inputs.BAND_NAME' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_NAME"
+          echo "BAND_NAME=""$BAND_NAME" > band.txt
           echo "BAND_NAME_ADDMAC=${{ github.event.inputs.BAND_NAME_ADDMAC }}" >> band.txt
-          echo "BAND_SSID=${{ github.event.inputs.BAND_SSID }}" >> band.txt
-          echo "BAND_ROOT_PASS=${{ github.event.inputs.BAND_ROOT_PASS }}" >> band.txt
-          echo "BAND_WLAN_PASS=${{ github.event.inputs.BAND_WLAN_PASS }}" >> band.txt
-          echo "::add-mask::${{ github.event.inputs.PASS_PUBKEY }}"
-          echo "PASS_PUBKEY=${{ github.event.inputs.PASS_PUBKEY }}" >> band.txt
-          echo "BAND_CIDR=${{ github.event.inputs.BAND_CIDR }}" >> band.txt
-          echo "CHIP=7981" >> band.txt
+          BAND_SSID=$(jq -r '.inputs.BAND_SSID' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_SSID"
+          echo "BAND_SSID=""$BAND_SSID" >> band.txt
+          PASS_PUBKEY=$(jq -r '.inputs.PASS_PUBKEY' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$PASS_PUBKEY"
+          echo "PASS_PUBKEY=""$PASS_PUBKEY" >> band.txt
+          BAND_ROOT_PASS=$(jq -r '.inputs.PASS_PUBKEY' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_ROOT_PASS"
+          echo "BAND_ROOT_PASS=""$BAND_ROOT_PASS" >> band.txt
+          BAND_WLAN_PASS=$(jq -r '.inputs.PASS_PUBKEY' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_WLAN_PASS"
+          echo "BAND_WLAN_PASS=""$BAND_WLAN_PASS" >> band.txt
+          BAND_CIDR=$(jq -r '.inputs.BAND_CIDR' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_CIDR"
+          echo "BAND_CIDR=""$BAND_CIDR" >> band.txt
+          echo "CHIP=7986" >> band.txt
+          cat band.txt
       - name: Build only
         run: cp band.txt RAX3000MNAND/ && bash RAX3000MNAND/RAX3000MNANDbuild.sh
       - name: cp bin
