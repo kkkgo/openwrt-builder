@@ -1,6 +1,17 @@
 #!/bin/sh
 . /etc/oem/band.txt
+
+while true; do
+    ping -c 1 -W 1 192.168.1.1 >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        break
+    fi
+    sleep 1
+done
+sleep 30
+
 maceth0=$(cat /sys/class/net/eth0/address | tr -d ':')
+
 # version
 if [ -z "$BAND_NAME" ]; then
     BAND_NAME="03k.org"
