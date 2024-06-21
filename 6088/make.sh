@@ -19,7 +19,7 @@ sed -i 's/ip6tables /echo -n #/g' "$dnsmasqfile"
 sed -i 's/nft /echo -n #/g' "$dnsmasqfile"
 
 # version
-current_date=$(date -u -d @"$(($(date -u +%s) + 8*3600))" "+%Y-%m-%d %H:%M:%S")
+current_date=$(date -u -d @"$(($(date -u +%s) + 8 * 3600))" "+%Y-%m-%d %H:%M:%S")
 new_description="BAND_NAME build $current_date"
 sed -i "s/^DISTRIB_DESCRIPTION=.*$/DISTRIB_DESCRIPTION='$new_description'/" /src/package/base-files/files/etc/openwrt_release
 
@@ -88,9 +88,17 @@ mkdir -p /data
 binroot="/src/bin/targets/mediatek/mt7986"
 rm "$binroot"/*.xz
 rm -rf "$binroot"/packages
-7z a -t7z -mx=9 /data/6088.7z "$binroot"
+
+. /src/files/etc/oem/band.txt
+if [ "$PASS_PUBKEY" = "null" ]; then
+    7z a -t7z -mx=9 /data/6088.7z "$binroot"
+else
+    7z a -t7z -mx=9 -p$PASS_PUBKEY /data/6088.7z "$binroot"
+fi
 
 make clean
 rm -rf /src/.git
-echo "" > /src/band.txt
-echo "" > /src/files/etc/oem/band.txt
+echo "" >/src/band.txt
+echo "" >/src/files/etc/oem/band.txt
+
+echo "PASS_PUBKEY=""$PASS_PUBKEY" >>band.txt
