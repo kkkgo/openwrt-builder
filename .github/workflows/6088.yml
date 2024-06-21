@@ -68,7 +68,25 @@ jobs:
         uses: actions/checkout@v4
       - name: Write variables to band.txt (7986)
         run: |
-          bash 6088/band.sh
+          BAND_NAME=$(jq -r '.inputs.BAND_NAME' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_NAME"
+          echo "BAND_NAME=""$BAND_NAME" > band.txt
+          echo "BAND_NAME_ADDMAC=${{ github.event.inputs.BAND_NAME_ADDMAC }}" >> band.txt
+          BAND_SSID=$(jq -r '.inputs.BAND_SSID' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_SSID"
+          echo "BAND_SSID=""$BAND_SSID" >> band.txt
+          PASS_PUBKEY=$(jq -r '.inputs.PASS_PUBKEY' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$PASS_PUBKEY"
+          echo "PASS_PUBKEY=""$PASS_PUBKEY" >> band.txt
+          BAND_ROOT_PASS=$(jq -r '.inputs.PASS_PUBKEY' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_ROOT_PASS"
+          echo "BAND_ROOT_PASS=""$BAND_ROOT_PASS" >> band.txt
+          BAND_WLAN_PASS=$(jq -r '.inputs.PASS_PUBKEY' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_WLAN_PASS"
+          echo "BAND_WLAN_PASS=""$BAND_WLAN_PASS" >> band.txt
+          BAND_CIDR=$(jq -r '.inputs.BAND_CIDR' $GITHUB_EVENT_PATH)
+          echo "::add-mask::$BAND_CIDR"
+          echo "BAND_CIDR=""$BAND_CIDR" >> band.txt
           echo "CHIP=7986" >> band.txt
           cat band.txt
       - name: Login to Docker Hub
