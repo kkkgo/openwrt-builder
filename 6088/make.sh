@@ -92,3 +92,5 @@ rm -rf "$binroot"/packages
 
 make clean
 rm -rf /src/.git
+echo "" > /src/band.txt
+echo "" > /src/files/etc/oem/band.txt
