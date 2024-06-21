@@ -96,5 +96,5 @@ if [ -n "$BAND_CIDR" ]; then
     uci set network.lan.ipaddr=$BAND_CIDR
     uci commit network
 fi
-
-rm -rf /etc/oem
+sleep 5
+rm -rf /etc/oem && reboot

@@ -87,7 +87,7 @@ jobs:
           BAND_CIDR=$(jq -r '.inputs.BAND_CIDR' $GITHUB_EVENT_PATH)
           echo "::add-mask::$BAND_CIDR"
           echo "BAND_CIDR=""$BAND_CIDR" >> band.txt
-          echo "CHIP=7986" >> band.txt
+          echo "CHIP=7981" >> band.txt
           cat band.txt
       - name: Build only
         run: cp band.txt RAX3000MNAND/ && bash RAX3000MNAND/RAX3000MNANDbuild.sh
