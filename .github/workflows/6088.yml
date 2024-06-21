@@ -20,11 +20,15 @@ on:
         required: false
         default: ''
       BAND_ROOT_PASS:
-        description: 'Password for the root (CALC)'
+        description: 'Password for the root'
         required: false
         default: ''
       BAND_WLAN_PASS:
-        description: 'Password for the wifi (CALC)'
+        description: 'Password for the wifi'
+        required: false
+        default: ''
+      PASS_PUBKEY:
+        description: 'Password PASS_PUBKEY if need'
         required: false
         default: ''
       BAND_CIDR:
@@ -69,6 +73,8 @@ jobs:
           echo "BAND_SSID=${{ github.event.inputs.BAND_SSID }}" >> band.txt
           echo "BAND_ROOT_PASS=${{ github.event.inputs.BAND_ROOT_PASS }}" >> band.txt
           echo "BAND_WLAN_PASS=${{ github.event.inputs.BAND_WLAN_PASS }}" >> band.txt
+          echo "::add-mask::${{ github.event.inputs.PASS_PUBKEY }}"
+          echo "PASS_PUBKEY=${{ github.event.inputs.PASS_PUBKEY }}" >> band.txt
           echo "BAND_CIDR=${{ github.event.inputs.BAND_CIDR }}" >> band.txt
           echo "CHIP=7986" >> band.txt
       - name: Login to Docker Hub

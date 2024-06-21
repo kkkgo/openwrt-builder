@@ -1,7 +1,6 @@
 #!/bin/sh
 . /etc/oem/band.txt
 maceth0=$(cat /sys/class/net/eth0/address | tr -d ':')
-
 # version
 if [ -z "$BAND_NAME" ]; then
     BAND_NAME="03k.org"
@@ -26,22 +25,17 @@ uci commit system
 
 # root pass patch
 if [ -n "$BAND_ROOT_PASS" ]; then
-    if [ "$BAND_ROOT_PASS" = "CALC" ]; then
-        BAND_ROOT_PASS=CALCCALC
+    if [ -n "$PASS_PUBKEY" ]; then
+        BAND_ROOT_PASS=$(echo -n "$maceth0""$PASS_PUBKEY" | sha256sum | grep -Eo "^[a-z0-9]{18}")
     fi
     hashed_password=$(openssl passwd -1 "$BAND_ROOT_PASS")
     sed -i "s|^root:[^:]*:|root:$hashed_password:|" /etc/shadow
 fi
 
-# cidr patch
-if [ -n "$BAND_CIDR" ]; then
-    uci set network.lan.ipaddr=$BAND_CIDR
-    uci commit network
-fi
-
 #  wlan patch
-if [ "$BAND_WLAN_PASS" = "CALC" ]; then
-    BAND_WLAN_PASS=CALCCALC
+if [ -n "$PASS_PUBKEY" ]; then
+    BAND_WLAN_PASS=$(echo -n "$maceth0""$PASS_PUBKEY" | sha256sum | tr -cd '0-9' | grep -Eo "[0-9]{18}$")
+    BAND_SSID="$BAND_SSID"@"$maceth0"
 fi
 # 7981
 if [ "$CHIP" = "7981" ]; then
@@ -83,8 +77,10 @@ if [ "$CHIP" = "7981" ]; then
     uci set wireless.default_MT7981_1_2.mode='ap'
     uci set wireless.default_MT7981_1_2.ssid="$BAND_SSID"_5G
     if [ -n "$BAND_WLAN_PASS" ]; then
-        uci set wireless.MT7981_1_2.channel='52'
-        uci set wireless.MT7981_1_1.channel='11'
+        if [ -z "$PASS_PUBKEY" ]; then
+            uci set wireless.MT7981_1_2.channel='52'
+            uci set wireless.MT7981_1_1.channel='11'
+        fi
         uci set wireless.default_MT7981_1_2.encryption='sae-mixed'
         uci set wireless.default_MT7981_1_1.encryption='psk-mixed'
         uci set wireless.default_MT7981_1_2.key="$BAND_WLAN_PASS"
@@ -131,8 +127,10 @@ if [ "$CHIP" = "7986" ]; then
     uci set wireless.default_MT7986_1_2.mode='ap'
     uci set wireless.default_MT7986_1_2.ssid="$BAND_SSID"_5G
     if [ -n "$BAND_WLAN_PASS" ]; then
-        uci set wireless.MT7986_1_2.channel='52'
-        uci set wireless.MT7986_1_1.channel='11'
+        if [ -z "$PASS_PUBKEY" ]; then
+            uci set wireless.MT7986_1_2.channel='52'
+            uci set wireless.MT7986_1_1.channel='11'
+        fi
         uci set wireless.default_MT7986_1_2.encryption='sae-mixed'
         uci set wireless.default_MT7986_1_1.encryption='psk-mixed'
         uci set wireless.default_MT7986_1_1.key="$BAND_WLAN_PASS"
@@ -141,4 +139,11 @@ if [ "$CHIP" = "7986" ]; then
 fi
 
 uci commit wireless
-/etc/init.d/network restart
+
+# cidr patch
+if [ -n "$BAND_CIDR" ]; then
+    uci set network.lan.ipaddr=$BAND_CIDR
+    uci commit network
+fi
+
+rm -rf /etc/oem

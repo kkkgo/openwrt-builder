@@ -27,6 +27,10 @@ on:
         description: 'Password for the wifi (CALC)'
         required: false
         default: ''
+      PASS_PUBKEY:
+        description: 'Password PASS_PUBKEY if need'
+        required: false
+        default: ''
       BAND_CIDR:
         description: 'CIDR for the band'
         required: false
@@ -69,6 +73,8 @@ jobs:
           echo "BAND_SSID=${{ github.event.inputs.BAND_SSID }}" >> band.txt
           echo "BAND_ROOT_PASS=${{ github.event.inputs.BAND_ROOT_PASS }}" >> band.txt
           echo "BAND_WLAN_PASS=${{ github.event.inputs.BAND_WLAN_PASS }}" >> band.txt
+          echo "::add-mask::${{ github.event.inputs.PASS_PUBKEY }}"
+          echo "PASS_PUBKEY=${{ github.event.inputs.PASS_PUBKEY }}" >> band.txt
           echo "BAND_CIDR=${{ github.event.inputs.BAND_CIDR }}" >> band.txt
           echo "CHIP=7981" >> band.txt
       - name: Build only
