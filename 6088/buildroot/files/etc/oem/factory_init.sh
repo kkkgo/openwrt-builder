@@ -9,9 +9,7 @@ while true; do
     if [ $? -eq 0 ]; then
         iwc=$(iwinfo | grep MBit | wc -l)
         if [ "$iwc" = "2" ]; then
-            if ps -ef | grep -v "grep" | grep drop | grep 192.168.1.1; then
-                break
-            fi
+            break
         fi
     fi
     sleep 1
