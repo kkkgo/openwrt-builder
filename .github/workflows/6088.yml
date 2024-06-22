@@ -78,10 +78,10 @@ jobs:
           PASS_PUBKEY=$(jq -r '.inputs.PASS_PUBKEY' $GITHUB_EVENT_PATH)
           echo "::add-mask::$PASS_PUBKEY"
           echo "PASS_PUBKEY=""$PASS_PUBKEY" >> band.txt
-          BAND_ROOT_PASS=$(jq -r '.inputs.PASS_PUBKEY' $GITHUB_EVENT_PATH)
+          BAND_ROOT_PASS=$(jq -r '.inputs.BAND_ROOT_PASS' $GITHUB_EVENT_PATH)
           echo "::add-mask::$BAND_ROOT_PASS"
           echo "BAND_ROOT_PASS=""$BAND_ROOT_PASS" >> band.txt
-          BAND_WLAN_PASS=$(jq -r '.inputs.PASS_PUBKEY' $GITHUB_EVENT_PATH)
+          BAND_WLAN_PASS=$(jq -r '.inputs.BAND_WLAN_PASS' $GITHUB_EVENT_PATH)
           echo "::add-mask::$BAND_WLAN_PASS"
           echo "BAND_WLAN_PASS=""$BAND_WLAN_PASS" >> band.txt
           BAND_CIDR=$(jq -r '.inputs.BAND_CIDR' $GITHUB_EVENT_PATH)

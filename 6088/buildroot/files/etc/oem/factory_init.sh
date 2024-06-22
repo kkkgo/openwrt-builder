@@ -20,16 +20,12 @@ done
 init_lock
 maceth0=$(cat /sys/class/net/eth0/address | tr -d ':')
 
-# version
-if [ "$BAND_NAME" = "null" ]; then
-    BAND_NAME="03k.org"
-fi
-sed -i "s/BAND_NAME/$BAND_NAME/" /etc/openwrt_release
-
-# hostname
+# hostname and version
 if [ "$BAND_NAME" = "null" ]; then
     HOST_NAME="Router"
+    sed -i "s/BAND_NAME/03k.org/" /etc/openwrt_release
 else
+    sed -i "s/BAND_NAME/$BAND_NAME/" /etc/openwrt_release
     if [ -z "$BAND_NAME_ADDMAC" ]; then
         HOST_NAME="$BAND_NAME"
     else
