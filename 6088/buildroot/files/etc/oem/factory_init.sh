@@ -101,4 +101,9 @@ if [ "$BAND_CIDR" != "null" ]; then
     uci set network.lan.ipaddr=$BAND_CIDR
     uci commit network
 fi
+
+# pacth null root pass
+if [ "$BAND_ROOT_PASS" = "null" ]; then
+    sed -i 's/^root:[^:]*:/root::/' /etc/shadow
+fi
 rm -rf /etc/oem && reboot
