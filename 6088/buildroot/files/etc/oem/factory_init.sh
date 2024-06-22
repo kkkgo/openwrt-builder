@@ -1,20 +1,23 @@
 #!/bin/sh
 # init lock
-sed -i "s|^root:[^:]*:|root:$(openssl passwd -1 /proc/sys/kernel/random/uuid):|" /etc/shadow
+init_lock() {
+    iptables -P INPUT DROP
+    iptables -P OUTPUT DROP
+    iptables -F
+    sed -i "s|^root:[^:]*:|root:$(openssl passwd -1 /proc/sys/kernel/random/uuid):|" /etc/shadow
+}
 
+init_lock
 . /etc/oem/band.txt
 
 while true; do
-    ping -c 1 -W 1 192.168.1.1 >/dev/null 2>&1
-    if [ $? -eq 0 ]; then
-        iwc=$(iwinfo | grep MBit | wc -l)
-        if [ "$iwc" = "2" ]; then
-            break
-        fi
+    iwc=$(iwinfo | grep MBit | wc -l)
+    if [ "$iwc" = "2" ]; then
+        break
     fi
     sleep 1
 done
-
+init_lock
 maceth0=$(cat /sys/class/net/eth0/address | tr -d ':')
 
 # version
@@ -27,7 +30,7 @@ sed -i "s/BAND_NAME/$BAND_NAME/" /etc/openwrt_release
 if [ "$BAND_NAME" = "null" ]; then
     HOST_NAME="Router"
 else
-    if [ "$BAND_NAME_ADDMAC" = "null" ]; then
+    if [ -z "$BAND_NAME_ADDMAC" ]; then
         HOST_NAME="$BAND_NAME"
     else
         HOST_NAME="$BAND_NAME""_""$maceth0"
