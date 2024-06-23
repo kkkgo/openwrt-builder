@@ -53,6 +53,7 @@ RUN tar -xvf *.tar.xz && rm *.tar.xz && mv *image* builder
 WORKDIR /src/builder
 COPY ./download.pkg /src/builder/download.pkg
 COPY ./prebuild.sh /src/prebuild.sh
+COPY ./efi.img /src/efi.img
 RUN bash /src/prebuild.sh
 COPY --from=sliamb/opbuilder /src/clash /src/builder/
 
