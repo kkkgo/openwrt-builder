@@ -19,6 +19,7 @@ RUN apk update && apk upgrade && apk add --no-cache \
     'git' \
     'grep' \
     'syslinux' \
+    'xorriso' \
     'grub' \
     'grub-efi' \
     'gzip' \
