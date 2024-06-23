@@ -265,3 +265,30 @@ if [ "$mmdb_down_hash" != "$mmdb_hash" ]; then
     cp /mmdb_down_hash_error .
     exit
 fi
+
+mkdir isolinux
+cp /usr/share/syslinux/isolinux.bin isolinux/
+cp /usr/share/syslinux/ldlinux.c32 isolinux/
+cat <<EOF > isolinux/isolinux.cfg
+default PaoPaoGateway
+label PaoPaoGateway
+  menu PaoPaoGateway
+  kernel /vmlinuz console=tty0 console=ttyS0,115200n8
+  append initrd=/initrd.gz
+EOF
+cat <<EOF > isolinux/grub.cfg
+insmod linux
+linux /vmlinuz console=tty0 console=ttyS0,115200n8 
+initrd /initrd.gz
+boot
+EOF
+
+grub-mkimage -p /efi/boot -o isolinux/bootx64.efi -O x86_64-efi part_gpt part_msdos fat iso9660 udf normal linux -c isolinux/grub.cfg
+efisize=$(du isolinux/bootx64.efi | grep -Eo "^[0-9]+")
+dd if=/dev/zero of="isolinux/efi.img" bs=1k count="$efisize"
+mformat -i isolinux/efi.img -f 1440 ::
+mformat -i isolinux/efi.img -h 1 -t 80 -n 9 -c 1 ::
+mmd -i isolinux/efi.img ::efi
+mmd -i isolinux/efi.img ::efi/boot
+mcopy -i isolinux/efi.img isolinux/bootx64.efi ::efi/boot/bootx64.efi
+rm isolinux/grub.cfg isolinux/bootx64.efi

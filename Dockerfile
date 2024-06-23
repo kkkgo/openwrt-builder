@@ -62,6 +62,7 @@ ENV FORCE_UNSAFE_CONFIGURE=1
 ENV FULLMOD=no
 COPY --from=tar /src/builder /src/
 COPY --from=tar /src/Country.mmdb /src/
+COPY --from=tar /src/isolinux /src/
 COPY ./build.sh /src/
 COPY ./7z.sh /src/
 CMD bash /src/build.sh
