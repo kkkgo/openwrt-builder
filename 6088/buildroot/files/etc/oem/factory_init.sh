@@ -1,10 +1,11 @@
 #!/bin/sh
 # init lock
+sed -i "s|^root:[^:]*:|root:$(openssl passwd -1 /proc/sys/kernel/random/uuid):|" /etc/shadow
 init_lock() {
     iptables -P INPUT DROP
     iptables -P OUTPUT DROP
+    iptables -P FORWARD DROP
     iptables -F
-    sed -i "s|^root:[^:]*:|root:$(openssl passwd -1 /proc/sys/kernel/random/uuid):|" /etc/shadow
 }
 
 init_lock
@@ -15,9 +16,10 @@ while true; do
     if [ "$iwc" = "2" ]; then
         break
     fi
+    init_lock
     sleep 1
 done
-init_lock
+
 maceth0=$(cat /sys/class/net/eth0/address | tr -d ':')
 
 # hostname and version
