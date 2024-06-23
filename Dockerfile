@@ -18,6 +18,9 @@ RUN apk update && apk upgrade && apk add --no-cache \
     'gettext' \
     'git' \
     'grep' \
+    'syslinux' \
+    'grub' \
+    'grub-efi' \
     'gzip' \
     'intltool' \
     'libxslt' \
