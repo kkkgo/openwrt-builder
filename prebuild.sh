@@ -266,6 +266,7 @@ if [ "$mmdb_down_hash" != "$mmdb_hash" ]; then
     exit
 fi
 
+cd /src ||exit
 mkdir isolinux
 cp /usr/share/syslinux/isolinux.bin isolinux/
 cp /usr/share/syslinux/ldlinux.c32 isolinux/
