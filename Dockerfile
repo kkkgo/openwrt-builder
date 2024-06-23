@@ -6,7 +6,6 @@ RUN apk update && apk upgrade && apk add --no-cache \
     'bc' \
     'binutils' \
     'bzip2' \
-    'cdrkit' \
     'coreutils' \
     'diffutils' \
     'elfutils-dev' \
