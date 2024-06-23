@@ -40,4 +40,15 @@ echo PACKAGES="$pkg"
 make image PROFILE="generic" PACKAGES="$pkg" FILES="/src/FILES" DISABLED_SERVICES="sysntpd"
 ls -lah /src/bin/targets/x86/64/*.iso
 mkdir -p /src/iso/
-mv /src/bin/targets/x86/64/*.iso /src/iso/
+
+if [ -f "/src/patch.sh" ]; then
+    cp -r /src/isolinux /tmp/cdrom/
+    xorriso -as mkisofs -o /src/iso/paopao-gateway-x86-64.iso \
+        -isohybrid-mbr isolinux/isolinux.bin \
+        -c isolinux/boot.cat -b isolinux/isolinux.bin \
+        -no-emul-boot -boot-load-size 4 -boot-info-table \
+        -eltorito-alt-boot -e /isolinux/efi.img \
+        -no-emul-boot -isohybrid-gpt-basdat -V "paopao-gateway" /tmp/cdrom/
+else
+    mv /src/bin/targets/x86/64/*.iso /src/iso/
+fi
