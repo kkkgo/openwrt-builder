@@ -273,7 +273,6 @@ cp /usr/share/syslinux/ldlinux.c32 isolinux/
 cat <<EOF >isolinux/isolinux.cfg
 default PaoPaoGateway
 label PaoPaoGateway
-  menu PaoPaoGateway
   kernel /vmlinuz console=tty0 console=ttyS0,115200n8
   append initrd=/initrd.gz
 EOF
