@@ -42,9 +42,7 @@ RUN apk update && apk upgrade && apk add --no-cache \
     'zlib-dev' \
     'curl' \
     'p7zip ' \
-    'py3-setuptools' \
-  && \
-  ln -s '/usr/lib/libncurses.so' '/usr/lib/libtinfo.so'
+    'py3-setuptools'
 
 FROM soft AS tar
 WORKDIR /src
