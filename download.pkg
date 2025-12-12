@@ -237,5 +237,5 @@ acpid
 qemu-ga
 open-vm-tools
 inotifywait
-
+psmisc
 

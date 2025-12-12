@@ -46,8 +46,8 @@ RUN apk update && apk upgrade && apk add --no-cache \
 
 FROM soft AS tar
 WORKDIR /src
-ADD https://downloads.openwrt.org/releases/23.05.5/targets/x86/64/openwrt-imagebuilder-23.05.5-x86-64.Linux-x86_64.tar.xz /src
-RUN tar -xvf *.tar.xz && rm *.tar.xz && mv *image* builder
+ADD https://downloads.openwrt.org/releases/24.10.4/targets/x86/64/openwrt-imagebuilder-24.10.4-x86-64.Linux-x86_64.tar.zst /src
+RUN tar -xvf *.tar.zst && rm *.tar.zst && mv *image* builder
 WORKDIR /src/builder
 COPY ./download.pkg /src/builder/download.pkg
 COPY ./prebuild.sh /src/prebuild.sh
