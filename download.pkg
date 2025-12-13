@@ -194,7 +194,7 @@ libf2fs6
 libgcc
 libgcc1
 libjson-c5
-libmbedtls12
+libmbedtls
 libmnl0
 libnftnl11
 libpthread
