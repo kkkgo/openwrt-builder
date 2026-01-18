@@ -228,6 +228,15 @@ kmod-fs-vfat
 pfring
 pf-ring
 spectrum
+kmod-rtw88
+kmod-rtw89
+kmod-ag71
+mt7622bt
+kmod-media
+i915
+kmod-industrialio
+amazon-ena
+kmod-sfc
 "
 
 for regex in $filtermod; do
