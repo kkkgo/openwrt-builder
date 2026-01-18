@@ -232,7 +232,8 @@ pf-ring
 for regex in $filtermod; do
     sed -i -E "/$regex/d" /src/builder/allmod.list
 done
-
+# remove no rss version
+sed -i '/^kmod-r8125$/d; /^kmod-r8126$/d; /^kmod-r8127$/d; /^kmod-r8168$/d' /src/builder/allmod.list
 addmod="
 acpid
 qemu-ga
