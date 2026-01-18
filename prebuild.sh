@@ -227,6 +227,7 @@ kmod-i2c-algo-bit
 kmod-fs-vfat
 pfring
 pf-ring
+mlxsw-spectrum
 "
 
 for regex in $filtermod; do
