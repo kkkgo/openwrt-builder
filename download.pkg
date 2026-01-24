@@ -208,8 +208,8 @@ logd
 -mtd
 netifd
 nftables
--odhcp6c
--odhcpd-ipv6only
+odhcp6c
+odhcpd-ipv6only
 -opkg
 partx-utils
 -ppp
