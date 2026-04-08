@@ -167,12 +167,9 @@ kmod-skge
 kmod-sky2
 kmod-slhc
 kmod-solos-pci
-kmod-spi-ks8995
 kmod-ssb
 kmod-swconfig
 kmod-switch-ar8xxx
-kmod-switch-bcm53xx
-kmod-switch-bcm53xx-mdio
 kmod-switch-ip17xx
 kmod-switch-rtl8306
 kmod-switch-rtl8366rb
