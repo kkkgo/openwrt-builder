@@ -1,8 +1,6 @@
 
 -amd64-microcode
 base-files
--bnx2-firmware
--bnx2x-firmware
 busybox
 ca-bundle
 -coreutils-nohup
