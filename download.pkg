@@ -207,7 +207,6 @@ netifd
 nftables
 odhcp6c
 odhcpd-ipv6only
--opkg
 partx-utils
 -ppp
 -ppp-mod-pppoe
