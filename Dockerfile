@@ -1,7 +1,7 @@
 ############################################
-# Stage 1: Build environment
+# Stage 1: Build environment (Debian / glibc 2.36)
 ############################################
-FROM ubuntu:24.04 AS build-env
+FROM debian:bookworm-slim AS build-env
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Shanghai
@@ -135,6 +135,7 @@ COPY --from=build /home/builder/openwrt/bin/targets/${TARGET}/${SUBTARGET}/openw
 
 FROM alpine:edge AS soft
 RUN apk update && apk upgrade && apk add --no-cache \
+    'gcompat' \
     'argp-standalone' \
     'asciidoc' \
     'bash' \
