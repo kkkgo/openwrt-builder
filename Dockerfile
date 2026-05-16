@@ -53,7 +53,14 @@ RUN set -eux; \
       echo "CONFIG_TARGET_${TARGET}_${SUBTARGET}=y";                          \
       echo "CONFIG_TARGET_${TARGET}_${SUBTARGET}_DEVICE_generic=y";           \
       echo "CONFIG_IB=y";                                                     \
+      # STANDALONE=y bundles ALL locally-built packages into the imagebuilder \
+      # so `make image` works offline. Combined with ALL=y / ALL_KMODS=y      \
+      # below, every feed package + every kmod gets compiled and shipped.     \
+      # (Without ALL, only kernel/libc/base would be built and bundled.)      \
       echo "CONFIG_IB_STANDALONE=y";                                          \
+      echo "CONFIG_ALL=y";                                                    \
+      echo "CONFIG_ALL_KMODS=y";                                              \
+      echo "CONFIG_ALL_NONSHARED=y";                                          \
       echo "CONFIG_TARGET_ROOTFS_TARGZ=y";                                    \
       # Disable kmod packages that conflict with built-in                                         \
       echo "# CONFIG_PACKAGE_kmod-sched-bpf is not set";                      \
