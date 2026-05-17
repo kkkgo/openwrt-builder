@@ -26,7 +26,7 @@ WORKDIR /home/builder
 ############################################
 FROM build-env AS source
 
-ARG OPENWRT_BRANCH=v25.12.3
+ARG OPENWRT_BRANCH=v25.12.4
 ARG OPENWRT_REPO=https://github.com/openwrt/openwrt.git
 
 RUN git clone --depth=1 --branch "${OPENWRT_BRANCH}" "${OPENWRT_REPO}" openwrt
