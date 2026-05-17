@@ -120,12 +120,12 @@ kmod-nf-conntrack
 -kmod-nf-conntrack6
 kmod-nf-conntrack-netlink
 kmod-nf-flow
--kmod-nf-ipt
+kmod-nf-ipt
 kmod-nf-log
 -kmod-nf-log6
 kmod-nf-nat
 kmod-nfnetlink
--kmod-nf-reject
+kmod-nf-reject
 -kmod-nf-reject6
 kmod-nf-socket
 kmod-nft-core
