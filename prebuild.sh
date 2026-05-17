@@ -1,5 +1,12 @@
 #!/bin/sh
 cd /src/builder || exit
+
+# OpenWrt 25.12 switched to apk. Its Makefile reads $(TOPDIR)/repositories via
+# `apk --repositories-file`, but with CONFIG_IB_STANDALONE=y the build does not
+# generate this file (all packages are bundled locally and pulled via
+# --repository $(PACKAGE_DIR)/packages.adb). Provide an empty file so apk
+# does not error with "failed to read repositories: ... No such file".
+[ -f /src/builder/repositories ] || : > /src/builder/repositories
 grep -E 'CONFIG_PACKAGE.+(kmod|firmware)' /src/builder/.config | grep -E "is not set|=" | grep -Eo "CONFIG_PACKAGE[-_a-zA-Z0-9]+" | sed "s/CONFIG_PACKAGE_//g" | sort -u >/src/builder/allmod.list
 
 filtermod="
@@ -255,7 +262,35 @@ for regex in $addmod; do
 done
 echo "" >>/src/builder/allmod.list
 
-cat /src/builder/allmod.list /src/builder/download.pkg | sort -u >/src/builder/pre.pkg
+# With CONFIG_IB_STANDALONE=y only locally-built packages are bundled, but
+# /src/builder/.config still references hundreds of feed packages (= or "is
+# not set") that were never built. The filtermod regex above can't keep up.
+# Intersect allmod.list with the actual *.apk files present so make image
+# never asks apk for a package we don't have. Strips trailing -<version>.
+ls /src/builder/packages/*.apk 2>/dev/null \
+    | sed -E 's|.*/||; s|-[^-]+(-r[0-9]+)?\.apk$||' \
+    | sort -u > /src/builder/available.pkg
+sort -u /src/builder/allmod.list > /src/builder/allmod.sorted
+comm -12 /src/builder/allmod.sorted /src/builder/available.pkg > /src/builder/allmod.filtered
+mv /src/builder/allmod.filtered /src/builder/allmod.list
+rm -f /src/builder/allmod.sorted
+
+cat /src/builder/allmod.list /src/builder/download.pkg | sort -u > /src/builder/pre.pkg.unfiltered
+# Keep negative entries (lines starting with '-') as-is — they're directives,
+# not package names. For positive entries, only keep those actually present
+# in /src/builder/packages/. Anything dropped is a build gap (e.g. kernel
+# built it in, or wrong variant name) and is logged for diagnosis.
+{
+    grep -E '^-' /src/builder/pre.pkg.unfiltered;
+    grep -Ev '^(-|\s*$)' /src/builder/pre.pkg.unfiltered \
+        | sort -u \
+        | comm -12 - /src/builder/available.pkg;
+} > /src/builder/pre.pkg
+echo "--- pre.pkg dropped (requested but no apk built) ---"
+grep -Ev '^(-|\s*$)' /src/builder/pre.pkg.unfiltered | sort -u \
+    | comm -23 - /src/builder/available.pkg | sed 's/^/  /' | head -30
+echo "----------------------------------------------------"
+rm -f /src/builder/pre.pkg.unfiltered
 while read line; do
     pkg="$pkg $line"
 done </src/builder/pre.pkg

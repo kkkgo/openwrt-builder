@@ -53,12 +53,11 @@ RUN set -eux; \
       echo "CONFIG_TARGET_${TARGET}_${SUBTARGET}=y";                          \
       echo "CONFIG_TARGET_${TARGET}_${SUBTARGET}_DEVICE_generic=y";           \
       echo "CONFIG_IB=y";                                                     \
-      # STANDALONE=y bundles ALL locally-built packages into the imagebuilder \
-      # so `make image` works offline. Combined with ALL=y / ALL_KMODS=y      \
-      # below, every feed package + every kmod gets compiled and shipped.     \
-      # (Without ALL, only kernel/libc/base would be built and bundled.)      \
+      # STANDALONE=y bundles all locally-built packages into the imagebuilder \
+      # so `make image` works offline. ALL_KMODS=y / ALL_NONSHARED=y build    \
+      # every kmod and firmware package so build.sh's FULLMOD=yes mode can    \
+      # actually pick from the full driver set (not just download.pkg).       \
       echo "CONFIG_IB_STANDALONE=y";                                          \
-      echo "CONFIG_ALL=y";                                                    \
       echo "CONFIG_ALL_KMODS=y";                                              \
       echo "CONFIG_ALL_NONSHARED=y";                                          \
       echo "CONFIG_TARGET_ROOTFS_TARGZ=y";                                    \
@@ -98,6 +97,21 @@ RUN set -eux; \
     { echo ''; echo '# ===== eBPF / BTF / ftrace / TC injected (openwrt-builder) ====='; cat /tmp/ebpf-kernel.config; } >> "$GENFRAG"; \
     { echo ''; echo '# ===== eBPF / BTF / ftrace / TC injected (openwrt-builder) ====='; cat /tmp/ebpf-kernel.config; } >> "$SUBFRAG"; \
     echo "--- subtarget fragment tail ---"; tail -60 "$SUBFRAG"
+
+# 2b) Inject CONFIG_PACKAGE_*=m for every positive entry in download.pkg so
+#     make world builds them and IB_STANDALONE bundles them into the imagebuilder.
+#     Negative entries (lines starting with '-') are skipped — they'd just be
+#     left at their default (usually unbuilt).
+COPY --chown=builder:builder download.pkg /tmp/download.pkg
+RUN set -eux; \
+    # Extra deps surfaced by `apk add` resolution in earlier runs: \
+    EXTRA="kmod-input-evdev kmod-tun"; \
+    PKGS=$(grep -Ev '^(\s*#|\s*-|\s*$)' /tmp/download.pkg | tr -d ' '); \
+    PKGS="$PKGS $EXTRA"; \
+    for p in $PKGS; do \
+      echo "CONFIG_PACKAGE_${p}=m"; \
+    done >> .config; \
+    echo "Injected $(echo $PKGS | wc -w) CONFIG_PACKAGE_*=m entries"
 
 # 3) defconfig legalizes the top-level .config (kernel fragments will be auto-merged during subsequent kernel build)
 RUN make defconfig

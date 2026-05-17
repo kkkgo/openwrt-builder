@@ -23,6 +23,26 @@ fi
 while read line; do
     pkg="$pkg $line"
 done <$pkgf
+
+# With CONFIG_IB_STANDALONE=y, only bundled apks are installable. Drop
+# positive package names that have no matching apk in /src/packages/ so apk
+# doesn't abort with "no such package" on built-in kmods or renamed pkgs.
+# (Negative entries starting with '-' are passthrough directives, kept as-is.)
+ls /src/packages/*.apk 2>/dev/null \
+    | sed -E 's|.*/||; s|-[^-]+(-r[0-9]+)?\.apk$||' \
+    | sort -u > /src/.available.pkg
+filtered=""
+for p in $pkg; do
+    case "$p" in
+        -*) filtered="$filtered $p" ;;
+        *)  if grep -qx "$p" /src/.available.pkg; then
+                filtered="$filtered $p"
+            else
+                echo "build.sh: dropping unavailable package: $p" >&2
+            fi ;;
+    esac
+done
+pkg="$filtered"
 mkdir -p /src/FILES/usr/bin/
 mkdir -p /src/FILES/etc/config/clash/
 mv /src/clash /src/FILES/usr/bin/
