@@ -57,7 +57,7 @@ set default="0"
 set timeout="0"
 
 menuentry "PaoPaoGateway" {
-	linux /boot/vmlinuz console=ttyAMA0 earlycon $BOOTOPTS
+	linux /boot/vmlinuz console=tty0 console=ttyAMA0,115200 earlycon
 	initrd /boot/initrd
 }
 EOF
