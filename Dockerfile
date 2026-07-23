@@ -42,7 +42,8 @@ RUN apk update && apk upgrade && apk add --no-cache \
     'zlib-dev' \
     'curl' \
     'p7zip ' \
-    'py3-setuptools'
+    'py3-setuptools' \
+    'qemu-img'
 
 FROM soft AS tar
 WORKDIR /src

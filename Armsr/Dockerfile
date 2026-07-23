@@ -43,7 +43,8 @@ RUN apk update && apk upgrade && apk add --no-cache \
     'wget' \
     'xorriso' \
     'zlib-dev' \
-    'zstd'
+    'zstd' \
+    'qemu-img'
 
 FROM soft AS tar
 WORKDIR /src
