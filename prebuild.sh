@@ -247,7 +247,6 @@ sed -i '/^kmod-r8125$/d; /^kmod-r8126$/d; /^kmod-r8127$/d; /^kmod-r8168$/d' /src
 addmod="
 acpid
 qemu-ga
-open-vm-tools
 "
 echo "" >>/src/builder/allmod.list
 for regex in $addmod; do
