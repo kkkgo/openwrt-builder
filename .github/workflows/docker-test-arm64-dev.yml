@@ -1,22 +1,17 @@
-name: Push build AMD64
+name: Push build ARM64
 on:
   # schedule:
   #   - cron: '00 20 * * *'
   push:
-    paths-ignore:
-      - 'README.md'
-      - '.github/**'
-      - 'LICENSE'
-      - '6088/**'
-      - 'ax6/**'
-      - 'imm/**'
-      - 'RAX3000MNAND/**'
+    paths:
       - 'Armsr/**'
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@master
       - name: Set up Docker Buildx
@@ -29,6 +24,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@master
         with:
+          context: ./Armsr
           push: true
           platforms: linux/amd64
-          tags: sliamb/opbuilder:latest
+          tags: sliamb/opbuilder:arm64
