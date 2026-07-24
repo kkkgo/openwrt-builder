@@ -242,8 +242,8 @@ kmod-sfc
 for regex in $filtermod; do
     sed -i -E "/$regex/d" /src/builder/allmod.list
 done
-# remove no rss version
-sed -i '/^kmod-r8125$/d; /^kmod-r8126$/d; /^kmod-r8127$/d; /^kmod-r8168$/d' /src/builder/allmod.list
+# remove rss version
+sed -i '/^kmod-r8125-rss$/d; /^kmod-r8126-rss$/d; /^kmod-r8127-rss$/d; /^kmod-r8168-rss$/d' /src/builder/allmod.list
 addmod="
 acpid
 qemu-ga
