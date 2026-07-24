@@ -29,11 +29,7 @@ mv /src/clash /src/FILES/usr/bin/
 mv /src/Country.mmdb /src/FILES/etc/config/clash/
 mkdir -p /src/cpfiles/
 cp -r /src/cpfiles/* /src/FILES/
-# mv /src/clash-dashboard /src/FILES/etc/config/clash/
-# cd /src/FILES/etc/config/clash/clash-dashboard/assets || exit
-# sed -i "s/PPGW_version/$ppgwver/g" $(grep -ros "PPGW_version" | cut -d":" -f1)
-# sed -i "s/PPGW_version/$ppgwver/g" /src/FILES/etc/config/clash/clash-dashboard/index_base.html
-# cd - || exit
+
 chmod +x /src/FILES/etc/*
 chmod +x /src/FILES/usr/bin/*
 echo PACKAGES="$pkg"
@@ -43,9 +39,6 @@ mkdir -p /src/iso/
 
 if [ -f "/src/patch.sh" ]; then
     cp -r /src/isolinux /tmp/cdrom/
-    # also expose the EFI loader on the ISO9660 tree itself, so firmwares that
-    # scan the medium (and tools that copy the ISO content onto a FAT stick)
-    # still find \EFI\BOOT\BOOTX64.EFI
     mkdir -p /tmp/cdrom/EFI/BOOT
     cp /src/isolinux/bootx64.efi /tmp/cdrom/EFI/BOOT/BOOTX64.EFI
     xorriso -as mkisofs -o /src/iso/paopao-gateway-x86-64.iso \
