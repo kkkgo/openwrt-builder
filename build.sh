@@ -43,12 +43,19 @@ mkdir -p /src/iso/
 
 if [ -f "/src/patch.sh" ]; then
     cp -r /src/isolinux /tmp/cdrom/
+    # also expose the EFI loader on the ISO9660 tree itself, so firmwares that
+    # scan the medium (and tools that copy the ISO content onto a FAT stick)
+    # still find \EFI\BOOT\BOOTX64.EFI
+    mkdir -p /tmp/cdrom/EFI/BOOT
+    cp /src/isolinux/bootx64.efi /tmp/cdrom/EFI/BOOT/BOOTX64.EFI
     xorriso -as mkisofs -o /src/iso/paopao-gateway-x86-64.iso \
-        -isohybrid-mbr isolinux/isolinux.bin \
+        -isohybrid-mbr isolinux/isohdpfx.bin \
+        -partition_offset 16 \
         -c isolinux/boot.cat -b isolinux/isolinux.bin \
         -no-emul-boot -boot-load-size 4 -boot-info-table \
-        -eltorito-alt-boot -e /isolinux/efi.img \
-        -no-emul-boot -isohybrid-gpt-basdat -V "paopao-gateway" /tmp/cdrom/
+        -eltorito-alt-boot -e isolinux/efi.img \
+        -no-emul-boot -isohybrid-gpt-basdat \
+        -r -J -joliet-long -V "paopao-gateway" /tmp/cdrom/
 else
     mv /src/bin/targets/x86/64/*.iso /src/iso/
 fi

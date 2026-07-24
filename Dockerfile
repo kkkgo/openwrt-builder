@@ -21,6 +21,8 @@ RUN apk update && apk upgrade && apk add --no-cache \
     'xorriso' \
     'grub' \
     'grub-efi' \
+    'mtools' \
+    'dosfstools' \
     'gzip' \
     'intltool' \
     'libxslt' \
@@ -51,7 +53,6 @@ RUN tar -xvf *.tar.zst && rm *.tar.zst && mv *image* builder
 WORKDIR /src/builder
 COPY ./download.pkg /src/builder/download.pkg
 COPY ./prebuild.sh /src/prebuild.sh
-COPY ./efi.img /src/efi.img
 RUN bash /src/prebuild.sh
 COPY --from=sliamb/opbuilder /src/clash /src/builder/
 

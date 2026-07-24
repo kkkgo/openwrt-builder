@@ -280,29 +280,37 @@ cd /src || exit
 mkdir isolinux
 cp /usr/share/syslinux/isolinux.bin isolinux/
 cp /usr/share/syslinux/ldlinux.c32 isolinux/
+# isohdpfx.bin is the hard-disk MBR template for isohybrid. isolinux.bin is the
+# El Torito CD boot sector and must never be used as the MBR: it would send
+# legacy BIOS straight back to the boot device menu when booted from USB.
+cp /usr/share/syslinux/isohdpfx.bin isolinux/
+# marker used by grub "search" to locate the ISO9660 volume at boot time
+echo "paopao-gateway" >isolinux/ppgw.id
 cat <<EOF >isolinux/isolinux.cfg
 default PaoPaoGateway
+prompt 0
+timeout 10
 label PaoPaoGateway
-  kernel /vmlinuz console=tty0 console=ttyS0,115200n8
-  append initrd=/initrd.gz
+  kernel /vmlinuz
+  append initrd=/initrd.gz console=tty0 console=ttyS0,115200n8
 EOF
+# The EFI binary is loaded from the FAT ESP (efi.img), so grub root points at that
+# 5MB FAT volume, not at the ISO. vmlinuz/initrd.gz live on the ISO9660 volume,
+# hence the search: without it grub drops to the "grub>" prompt.
 cat <<EOF >isolinux/grub.cfg
-insmod linux
-linux /vmlinuz console=tty0 console=ttyS0,115200n8 
+set timeout=1
+search --no-floppy --set=root --file /isolinux/ppgw.id
+linux /vmlinuz console=tty0 console=ttyS0,115200n8
 initrd /initrd.gz
 boot
 EOF
-
-if [ -f "/src/efi.img" ]; then
-    cp /src/efi.img isolinux/efi.img
-else
-    grub-mkimage -p /efi/boot -o isolinux/bootx64.efi -O x86_64-efi part_gpt part_msdos fat iso9660 udf normal linux -c isolinux/grub.cfg
-    dd if=/dev/zero of="isolinux/efi.img" bs=512 count=1440
-    mformat -i isolinux/efi.img -f 1440 ::
-    mformat -i isolinux/efi.img -h 1 -t 80 -n 9 -c 1 ::
-    mmd -i isolinux/efi.img ::efi
-    mmd -i isolinux/efi.img ::efi/boot
-    mcopy -i isolinux/efi.img isolinux/bootx64.efi ::efi/boot/bootx64.efi
-    rm isolinux/bootx64.efi
-fi
-rm isolinux/grub.cfg
+grub-mkimage -p /isolinux -o isolinux/bootx64.efi -O x86_64-efi \
+    part_gpt part_msdos fat iso9660 udf normal linux search search_fs_file \
+    search_fs_uuid search_label configfile echo test gzio loadenv minicmd reboot halt \
+    -c isolinux/grub.cfg
+# -s 1 keeps the cluster count above the FAT16 minimum; the image stays a whole
+# number of 512b sectors so the El Torito / GPT / MBR extents all agree.
+kb=$(($(stat -c%s isolinux/bootx64.efi) / 1024 + 4096))
+mkfs.vfat -C -F 16 -s 1 -n PPGWEFI isolinux/efi.img "$kb"
+mmd -i isolinux/efi.img ::EFI ::EFI/BOOT
+mcopy -i isolinux/efi.img isolinux/bootx64.efi ::EFI/BOOT/BOOTX64.EFI
